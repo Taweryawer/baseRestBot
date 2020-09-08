@@ -2,10 +2,12 @@ package taweryawer.service;
 
 import org.springframework.messaging.Message;
 import org.springframework.messaging.support.MessageBuilder;
+import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.Map;
 
+@Service
 public class MessageBuilderBuilder<E> {
 
     private HashMap<String, Object> headers = new HashMap<>();

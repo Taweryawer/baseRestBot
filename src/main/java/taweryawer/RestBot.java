@@ -5,6 +5,7 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.Message;
 import org.springframework.statemachine.StateMachine;
+import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import taweryawer.service.MessageBuilderBuilder;
@@ -13,6 +14,7 @@ import taweryawer.service.UserService;
 import taweryawer.statemachine.UserEvent;
 import taweryawer.statemachine.UserState;
 
+@Component
 public class RestBot extends TelegramLongPollingBot {
 
     private StateMachineService stateMachineService;

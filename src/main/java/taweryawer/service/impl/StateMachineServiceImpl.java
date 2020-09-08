@@ -5,10 +5,12 @@ import org.springframework.statemachine.StateMachine;
 import org.springframework.statemachine.StateMachineContext;
 import org.springframework.statemachine.config.StateMachineFactory;
 import org.springframework.statemachine.data.jpa.JpaRepositoryStateMachinePersist;
+import org.springframework.stereotype.Service;
 import taweryawer.service.StateMachineService;
 import taweryawer.statemachine.UserEvent;
 import taweryawer.statemachine.UserState;
 
+@Service
 public class StateMachineServiceImpl implements StateMachineService {
 
     private JpaRepositoryStateMachinePersist<UserState, UserEvent> jpaRepositoryStateMachinePersist;

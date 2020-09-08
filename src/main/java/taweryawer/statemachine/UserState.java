@@ -1,5 +1,5 @@
 package taweryawer.statemachine;
 
 public enum UserState {
-    NORMAL
+    NORMAL, TYPING_NAME
 }
