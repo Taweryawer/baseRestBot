@@ -1,0 +1,25 @@
+package taweryawer.config;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.statemachine.data.jpa.JpaRepositoryStateMachinePersist;
+import org.springframework.statemachine.data.jpa.JpaStateMachineRepository;
+import taweryawer.statemachine.UserEvent;
+import taweryawer.statemachine.UserState;
+
+@Configuration
+public class BeansConfig {
+
+    private JpaStateMachineRepository jpaStateMachineRepository;
+
+    @Autowired
+    public BeansConfig(JpaStateMachineRepository jpaStateMachineRepository) {
+        this.jpaStateMachineRepository = jpaStateMachineRepository;
+    }
+
+    @Bean
+    public JpaRepositoryStateMachinePersist<UserState, UserEvent> jpaRepositoryStateMachinePersist() {
+        return new JpaRepositoryStateMachinePersist<>(jpaStateMachineRepository);
+    }
+}
