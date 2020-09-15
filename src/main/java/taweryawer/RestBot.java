@@ -35,7 +35,6 @@ public class RestBot extends TelegramLongPollingBot {
             if (update.hasMessage()) {
                 StateMachine<UserState, UserEvent> stateMachine = stateMachineService.getStateMachine(update.getMessage().getFrom().getId().toString());
                 messageBuilderBuilder
-                        .addHeader("bot", this)
                         .addHeader("update", update);
                 if(update.getMessage().getText().equals("/start")) {
                     userService.getUserByTelegramId(update.getMessage().getFrom().getId().toString());

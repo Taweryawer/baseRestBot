@@ -11,6 +11,7 @@ import org.springframework.statemachine.config.builders.StateMachineTransitionCo
 import org.springframework.statemachine.data.jpa.JpaPersistingStateMachineInterceptor;
 import org.springframework.statemachine.data.jpa.JpaStateMachineRepository;
 import org.springframework.statemachine.persist.StateMachineRuntimePersister;
+import taweryawer.service.ActionFactory;
 import taweryawer.statemachine.UserEvent;
 import taweryawer.statemachine.UserState;
 
@@ -22,6 +23,9 @@ public class StateMachineConfiguration extends EnumStateMachineConfigurerAdapter
 
     @Autowired
     private StateMachineRuntimePersister<UserState, UserEvent, String> stateMachineRuntimePersister;
+
+    @Autowired
+    private ActionFactory actionFactory;
 
     @Override
     public void configure(StateMachineConfigurationConfigurer<UserState, UserEvent> config) throws Exception {
@@ -45,7 +49,7 @@ public class StateMachineConfiguration extends EnumStateMachineConfigurerAdapter
     public void configure(StateMachineTransitionConfigurer<UserState, UserEvent> transitions) throws Exception {
         transitions
                 .withExternal()
-                    .source(UserState.NORMAL).target(UserState.TYPING_NAME).event(UserEvent.START);
+                    .source(UserState.NORMAL).target(UserState.TYPING_NAME).event(UserEvent.START).action(actionFactory.startAction());
     }
 
     @Bean
