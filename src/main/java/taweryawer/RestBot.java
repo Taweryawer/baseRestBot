@@ -3,16 +3,19 @@ package taweryawer;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.messaging.Message;
 import org.springframework.statemachine.StateMachine;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.objects.Update;
+import taweryawer.service.ActionFactory;
 import taweryawer.service.MessageBuilderBuilder;
 import taweryawer.service.StateMachineService;
 import taweryawer.service.UserService;
 import taweryawer.statemachine.UserEvent;
 import taweryawer.statemachine.UserState;
+import taweryawer.statemachine.actions.ErrorAction;
 
 @Component
 public class RestBot extends TelegramLongPollingBot {
@@ -22,8 +25,9 @@ public class RestBot extends TelegramLongPollingBot {
     private UserService userService;
     private MessageBuilderBuilder<UserEvent> messageBuilderBuilder;
 
+
     @Autowired
-    public RestBot(StateMachineService stateMachineService, UserService userService, MessageBuilderBuilder<UserEvent> messageBuilderBuilder) {
+    public RestBot(@Lazy StateMachineService stateMachineService, UserService userService, MessageBuilderBuilder<UserEvent> messageBuilderBuilder) {
         this.stateMachineService = stateMachineService;
         this.userService = userService;
         this.messageBuilderBuilder = messageBuilderBuilder;

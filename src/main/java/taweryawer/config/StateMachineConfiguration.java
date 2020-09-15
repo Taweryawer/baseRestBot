@@ -49,7 +49,7 @@ public class StateMachineConfiguration extends EnumStateMachineConfigurerAdapter
     public void configure(StateMachineTransitionConfigurer<UserState, UserEvent> transitions) throws Exception {
         transitions
                 .withExternal()
-                    .source(UserState.NORMAL).target(UserState.TYPING_NAME).event(UserEvent.START).action(actionFactory.startAction());
+                    .source(UserState.NORMAL).target(UserState.TYPING_NAME).event(UserEvent.START).action(actionFactory.startAction(), actionFactory.errorAction());
     }
 
     @Bean
