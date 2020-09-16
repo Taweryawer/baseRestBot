@@ -20,4 +20,9 @@ public class UserServiceImpl implements UserService {
     public User getUserByTelegramId(String telegramId) {
         return userRepository.getUserByTelegramId(telegramId);
     }
+
+    @Override
+    public void changeUserName(String telegramId, String newName) {
+        userRepository.changeUserName(telegramId, newName);
+    }
 }

@@ -4,4 +4,5 @@ import taweryawer.entities.User;
 
 public interface UserRepository {
     User getUserByTelegramId(String telegramId);
+    void changeUserName(String telegramId, String newName);
 }
