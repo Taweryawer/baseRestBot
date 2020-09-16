@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Lookup;
 import org.springframework.stereotype.Service;
 import taweryawer.statemachine.actions.ErrorAction;
 import taweryawer.statemachine.actions.PersistNameAction;
+import taweryawer.statemachine.actions.PersistPhoneNumberAction;
 import taweryawer.statemachine.actions.StartAction;
 
 @Service
@@ -23,5 +24,10 @@ public class ActionFactory {
     @Lookup
     public PersistNameAction persistNameAction() {
         return  null;
+    }
+
+    @Lookup
+    public PersistPhoneNumberAction persistPhoneNumberAction(){
+        return null;
     }
 }

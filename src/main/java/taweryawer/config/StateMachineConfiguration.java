@@ -53,7 +53,10 @@ public class StateMachineConfiguration extends EnumStateMachineConfigurerAdapter
                 .and()
                 .withExternal()
                     .source(UserState.TYPING_NAME).target(UserState.TYPING_NUMBER).event(UserEvent.MESSAGE).action(actionFactory.persistNameAction(), actionFactory.errorAction())
-                ;
+                .and()
+                .withExternal()
+                    .source(UserState.TYPING_NUMBER).target(UserState.TYPING_ADDRESS).event(UserEvent.MESSAGE).action(actionFactory.persistPhoneNumberAction(), actionFactory.errorAction())
+        ;
     }
 
     @Bean

@@ -22,10 +22,6 @@ public class User {
     @Column(name = "address")
     private String address;
 
-    @Enumerated
-    @Column(name = "payment_method")
-    private PaymentMethod paymentMethod;
-
     @Column(name = "machine_id")
     private String machineId;
 

@@ -51,6 +51,13 @@ public class UserRepositoryImpl implements UserRepository {
         entityManager.persist(user);
     }
 
+    @Override
+    public void changeUserPhoneNumber(String telegramId, String newNumber) {
+        User user = getUserByTelegramId(telegramId);
+        user.setPhoneNumber(newNumber);
+        entityManager.persist(user);
+    }
+
 
     private User createNewUser(String telegramId) {
         User user = new User();
