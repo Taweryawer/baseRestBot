@@ -16,7 +16,6 @@ import javax.persistence.criteria.Root;
 import javax.transaction.Transactional;
 
 @Repository
-@Transactional
 public class UserRepositoryImpl implements UserRepository {
 
     @PersistenceContext
@@ -25,7 +24,7 @@ public class UserRepositoryImpl implements UserRepository {
     private Log log = LogFactory.getLog(UserRepositoryImpl.class);
 
     @Override
-    public User getUserByTelegramId(String telegramId) {
+    public User getUserByTelegramId(String telegramId) throws Exception {
         log.info("Acquiring user " + telegramId);
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         CriteriaQuery<User> cq = cb.createQuery(User.class);
@@ -45,17 +44,21 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public void changeUserName(String telegramId, String newName) {
+    public void changeUserName(String telegramId, String newName) throws Exception {
         User user = getUserByTelegramId(telegramId);
+        log.info("Changing user " + user.getId() + " name from " + user.getName() + " to " + newName);
         user.setName(newName);
         entityManager.persist(user);
+        log.info("Changed user " + user.getId() + " name successfully");
     }
 
     @Override
-    public void changeUserPhoneNumber(String telegramId, String newNumber) {
+    public void changeUserPhoneNumber(String telegramId, String newNumber) throws Exception {
         User user = getUserByTelegramId(telegramId);
+        log.info("Changing user " + user.getId() + " phone number from " + user.getName() + " to " + newNumber);
         user.setPhoneNumber(newNumber);
         entityManager.persist(user);
+        log.info("Changed user " + user.getId() + " phone number successfully");
     }
 
 

@@ -10,7 +10,7 @@ import taweryawer.statemachine.UserEvent;
 import taweryawer.statemachine.UserState;
 
 @Configuration
-@PropertySource(value = "classpath:messages.properties", encoding = "UTF-8")
+@PropertySource(value = "classpath:messages-${spring.profiles.active}.properties", encoding = "UTF-8")
 public class BeansConfig {
 
     private JpaStateMachineRepository jpaStateMachineRepository;

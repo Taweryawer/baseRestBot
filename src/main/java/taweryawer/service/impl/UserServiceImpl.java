@@ -6,7 +6,10 @@ import taweryawer.entities.User;
 import taweryawer.repository.UserRepository;
 import taweryawer.service.UserService;
 
+import javax.transaction.Transactional;
+
 @Service
+@Transactional
 public class UserServiceImpl implements UserService {
 
     private UserRepository userRepository;
@@ -17,17 +20,17 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User getUserByTelegramId(String telegramId) {
+    public User getUserByTelegramId(String telegramId) throws Exception {
         return userRepository.getUserByTelegramId(telegramId);
     }
 
     @Override
-    public void changeUserName(String telegramId, String newName) {
+    public void changeUserName(String telegramId, String newName) throws Exception {
         userRepository.changeUserName(telegramId, newName);
     }
 
     @Override
-    public void changeUserPhoneNumber(String telegramId, String newNumber) {
+    public void changeUserPhoneNumber(String telegramId, String newNumber) throws Exception {
         userRepository.changeUserPhoneNumber(telegramId, newNumber);
     }
 }
