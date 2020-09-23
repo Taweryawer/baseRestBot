@@ -61,6 +61,15 @@ public class UserRepositoryImpl implements UserRepository {
         log.info("Changed user " + user.getId() + " phone number successfully");
     }
 
+    @Override
+    public void changeUserAddress(String telegramId, String address) throws Exception {
+        User user = getUserByTelegramId(telegramId);
+        log.info("Changing user " + user.getId() + " address from " + user.getAddress() + " to " + address);
+        user.setAddress(address);
+        entityManager.persist(address);
+        log.info("Changed user " + user.getId() + " address successfully");
+    }
+
 
     private User createNewUser(String telegramId) {
         User user = new User();

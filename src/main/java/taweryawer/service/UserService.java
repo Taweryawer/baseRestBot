@@ -12,4 +12,6 @@ public interface UserService {
     void changeUserName(String telegramId, String newName) throws Exception;
 
     void changeUserPhoneNumber(String telegramId, String newNumber) throws Exception;
+
+    void changeUserAddress(String telegramId, String newAddress) throws Exception;
 }

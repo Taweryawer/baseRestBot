@@ -33,4 +33,9 @@ public class UserServiceImpl implements UserService {
     public void changeUserPhoneNumber(String telegramId, String newNumber) throws Exception {
         userRepository.changeUserPhoneNumber(telegramId, newNumber);
     }
+
+    @Override
+    public void changeUserAddress(String telegramId, String newAddress) throws Exception {
+        userRepository.changeUserAddress(telegramId, newAddress);
+    }
 }

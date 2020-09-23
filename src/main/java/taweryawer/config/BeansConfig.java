@@ -6,6 +6,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.statemachine.data.jpa.JpaRepositoryStateMachinePersist;
 import org.springframework.statemachine.data.jpa.JpaStateMachineRepository;
+import taweryawer.repository.UserRepository;
+import taweryawer.repository.impl.UserRepositoryImpl;
 import taweryawer.statemachine.UserEvent;
 import taweryawer.statemachine.UserState;
 
