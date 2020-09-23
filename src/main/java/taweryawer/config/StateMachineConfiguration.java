@@ -59,6 +59,9 @@ public class StateMachineConfiguration extends EnumStateMachineConfigurerAdapter
                 .and()
                 .withExternal()
                     .source(UserState.TYPING_ADDRESS).target(UserState.NORMAL).event(UserEvent.MESSAGE).action(actionFactory.persistAddressAction(), actionFactory.errorAction())
+                .and()
+                .withInternal()
+                    .source(UserState.NORMAL).event(UserEvent.PROFILE).action(actionFactory.messageAction(), actionFactory.errorAction())
         ;
     }
 

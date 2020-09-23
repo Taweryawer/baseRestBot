@@ -1,5 +1,5 @@
 package taweryawer.statemachine;
 
 public enum UserEvent {
-    START, MESSAGE
+    START, MESSAGE, PROFILE
 }

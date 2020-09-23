@@ -32,4 +32,9 @@ public class ActionFactory {
     public PersistAddressAction persistAddressAction() {
         return null;
     }
+
+    @Lookup
+    public MessageAction messageAction() {
+        return null;
+    }
 }
