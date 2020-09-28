@@ -37,4 +37,9 @@ public class ActionFactory {
     public MessageAction messageAction() {
         return null;
     }
+
+    @Lookup
+    public ProfileAction profileAction() {
+        return null;
+    }
 }

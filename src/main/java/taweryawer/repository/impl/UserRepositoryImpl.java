@@ -66,7 +66,7 @@ public class UserRepositoryImpl implements UserRepository {
         User user = getUserByTelegramId(telegramId);
         log.info("Changing user " + user.getId() + " address from " + user.getAddress() + " to " + address);
         user.setAddress(address);
-        entityManager.persist(address);
+        entityManager.persist(user);
         log.info("Changed user " + user.getId() + " address successfully");
     }
 
