@@ -6,6 +6,7 @@ CREATE TABLE category (
 
 CREATE TABLE food (
   id int NOT NULL AUTO_INCREMENT,
+  title varchar(255),
   weight int(11),
   price int(11),
   description varchar(255),

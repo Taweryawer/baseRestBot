@@ -3,7 +3,6 @@ package taweryawer.repository.impl;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Repository;
 import taweryawer.entities.Category;
-import taweryawer.entities.Food;
 import taweryawer.repository.CategoryRepository;
 
 import javax.persistence.EntityManager;

@@ -48,6 +48,12 @@ public class RestBot extends TelegramLongPollingBot {
                     stateMachine.sendEvent(messageBuilderBuilder.build(UserEvent.MESSAGE));
                 }
             }
+            if (update.hasInlineQuery()) {
+                StateMachine<UserState, UserEvent> stateMachine = stateMachineService.getStateMachine(update.getInlineQuery().getFrom().getId().toString());
+                messageBuilderBuilder
+                        .addHeader("update", update);
+                stateMachine.sendEvent(messageBuilderBuilder.build(UserEvent.INLINE));
+            }
         } catch (Exception e) {
             log.error("Something went wrong", e);
         }
