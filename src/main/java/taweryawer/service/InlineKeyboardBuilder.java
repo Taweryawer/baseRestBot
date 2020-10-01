@@ -17,10 +17,7 @@ public class InlineKeyboardBuilder {
        InlineKeyboardButton button = new InlineKeyboardButton(text);
        button.setCallbackData(data);
        currentRow.add(button);
-
-       if (currentRow.size() > 2) {
-           finishRow();
-       }
+        checkRow();
        return this;
     }
 
@@ -29,11 +26,25 @@ public class InlineKeyboardBuilder {
         currentRow = new ArrayList<>();
     }
 
-    private InlineKeyboardMarkup build() {
+    public InlineKeyboardMarkup build() {
         finishRow();
         InlineKeyboardMarkup markup = new InlineKeyboardMarkup();
         markup.setKeyboard(keyboard);
         keyboard = new ArrayList<>();
         return markup;
+    }
+
+    private void checkRow() {
+        if (currentRow.size() >= 2) {
+            finishRow();
+        }
+    }
+
+    public InlineKeyboardBuilder addInlineQueryButton(String text) {
+        InlineKeyboardButton button = new InlineKeyboardButton(text);
+        button.setSwitchInlineQueryCurrentChat(text);
+        currentRow.add(button);
+        checkRow();
+        return this;
     }
 }

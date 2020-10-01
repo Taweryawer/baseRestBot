@@ -1,5 +1,6 @@
 package taweryawer.repository.impl;
 
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Repository;
 import taweryawer.entities.Category;
 import taweryawer.entities.Food;
@@ -20,6 +21,7 @@ public class CategoryRepositoryImpl implements CategoryRepository {
     private EntityManager entityManager;
 
     @Override
+    @Cacheable(value = "categories")
     public List<Category> getAllCategories() {
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         CriteriaQuery<Category> cq = cb.createQuery(Category.class);
