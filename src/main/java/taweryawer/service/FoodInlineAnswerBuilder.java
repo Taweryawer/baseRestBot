@@ -25,6 +25,7 @@ public class FoodInlineAnswerBuilder {
         result.setTitle(food.getTitle());
         result.setDescription(foodService.getDescriptionForFood(food));
         result.setThumbUrl(food.getPhotoURL());
+        result.setId(UUID.randomUUID().toString());
         InputTextMessageContent content = new InputTextMessageContent();
         content.setMessageText(foodService.getContentDescriptionForFood(food));
         content.setParseMode(ParseMode.MARKDOWN);
@@ -32,10 +33,10 @@ public class FoodInlineAnswerBuilder {
         results.add(result);
     }
 
-    public AnswerInlineQuery build() {
+    public AnswerInlineQuery build(String queryId) {
         AnswerInlineQuery answerInlineQuery = new AnswerInlineQuery();
         answerInlineQuery.setResults(results);
-        answerInlineQuery.setInlineQueryId(UUID.randomUUID().toString());
+        answerInlineQuery.setInlineQueryId(queryId);
         answerInlineQuery.setCacheTime(0);
         results = new ArrayList<>();
         return answerInlineQuery;

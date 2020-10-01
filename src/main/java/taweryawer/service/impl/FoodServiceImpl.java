@@ -47,7 +47,8 @@ public class FoodServiceImpl implements FoodService {
                 .append(food.getPriceKyiv() + " | " + food.getPriceKharkiv())
                 .append("\n")
                 .append("*Кількість:* ")
-                .append(food.getWeight());
+                .append(food.getWeight())
+                .append(" [⠀]" + "(" + food.getPhotoURL() + ")");
         return sb.toString();
     }
 

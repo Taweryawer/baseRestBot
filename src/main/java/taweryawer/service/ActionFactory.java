@@ -47,4 +47,9 @@ public class ActionFactory {
     public MenuAction menuAction() {
         return null;
     }
+
+    @Lookup
+    public InlineQueryAction inlineQueryAction() {
+        return null;
+    }
 }
