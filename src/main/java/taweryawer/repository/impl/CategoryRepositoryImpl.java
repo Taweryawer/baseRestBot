@@ -1,5 +1,6 @@
 package taweryawer.repository.impl;
 
+import org.springframework.stereotype.Repository;
 import taweryawer.entities.Category;
 import taweryawer.entities.Food;
 import taweryawer.repository.CategoryRepository;
@@ -12,6 +13,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import java.util.List;
 
+@Repository
 public class CategoryRepositoryImpl implements CategoryRepository {
 
     @PersistenceContext
