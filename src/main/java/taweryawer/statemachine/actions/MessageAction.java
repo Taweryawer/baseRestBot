@@ -21,13 +21,16 @@ public class MessageAction implements Action<UserState, UserEvent> {
         final Update update = (Update) context.getMessageHeader("update");
         String telegramId = update.getMessage().getFrom().getId().toString();
         String text = update.getMessage().getText();
-
         messageBuilderBuilder.addHeader("update", update);
         StateMachine<UserState, UserEvent> currentStateMachine = context.getStateMachine();
 
         switch (text) {
             case "Профіль": {
                 currentStateMachine.sendEvent(messageBuilderBuilder.build(UserEvent.PROFILE));
+                break;
+            }
+            case "Меню": {
+                currentStateMachine.sendEvent(messageBuilderBuilder.build(UserEvent.MENU));
                 break;
             }
         }

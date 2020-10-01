@@ -42,4 +42,14 @@ public class ActionFactory {
     public ProfileAction profileAction() {
         return null;
     }
+
+    @Lookup
+    public MenuAction menuAction() {
+        return null;
+    }
+
+    @Lookup
+    public InlineQueryAction inlineQueryAction() {
+        return null;
+    }
 }
