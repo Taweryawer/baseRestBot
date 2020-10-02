@@ -1,5 +1,5 @@
 CREATE TABLE usr (
-  id int NOT NULL AUTO_INCREMENT,
+  id bigint NOT NULL AUTO_INCREMENT,
   name varchar(255),
   address varchar(255),
   payment_method varchar(255),

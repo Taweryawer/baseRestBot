@@ -1,5 +1,7 @@
 package taweryawer.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.flyway.FlywayMigrationStrategy;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
@@ -12,6 +14,7 @@ import taweryawer.repository.impl.UserRepositoryImpl;
 @Configuration
 @EnableTransactionManagement
 public class TestBeansConfig {
+
 
     @Bean
     public UserRepository userRepository() {
