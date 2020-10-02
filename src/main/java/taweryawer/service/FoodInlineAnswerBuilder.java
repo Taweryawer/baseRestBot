@@ -18,6 +18,9 @@ public class FoodInlineAnswerBuilder {
     @Autowired
     private FoodService foodService;
 
+    @Autowired
+    private InlineKeyboardBuilder builder;
+
     private ArrayList<InlineQueryResult> results = new ArrayList<>();
 
     public void addFood(Food food) {
@@ -29,6 +32,9 @@ public class FoodInlineAnswerBuilder {
         InputTextMessageContent content = new InputTextMessageContent();
         content.setMessageText(foodService.getContentDescriptionForFood(food));
         content.setParseMode(ParseMode.MARKDOWN);
+        result.setReplyMarkup(builder
+                                .addButton("Додати до кошика", "add " + food.getId())
+                                .build());
         result.setInputMessageContent(content);
         results.add(result);
     }

@@ -21,7 +21,7 @@ public class InlineKeyboardBuilder {
        return this;
     }
 
-    private void finishRow() {
+    public void finishRow() {
         keyboard.add(currentRow);
         currentRow = new ArrayList<>();
     }
