@@ -1,7 +1,8 @@
 package taweryawer.repository;
 
 import org.springframework.stereotype.Repository;
+import taweryawer.entities.OrderPiece;
 
-@Repository
 public interface OrderPieceRepository {
+    public OrderPiece getOrderPieceByid(Long id);
 }

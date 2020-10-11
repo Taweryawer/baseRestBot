@@ -31,4 +31,9 @@ public class FoodRepositoryImpl implements FoodRepository {
         TypedQuery<Food> query = entityManager.createQuery(cq);
         return query.getResultList();
     }
+
+    @Override
+    public Food getFoodById(Long foodId) {
+        return entityManager.find(Food.class, foodId);
+    }
 }

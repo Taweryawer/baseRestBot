@@ -1,7 +1,5 @@
-import org.flywaydb.core.Flyway;
 import org.flywaydb.test.annotation.FlywayTest;
 import org.flywaydb.test.junit5.FlywayTestExtension;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -9,17 +7,20 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-import taweryawer.Main;
 import taweryawer.config.TestBeansConfig;
 import taweryawer.entities.*;
 import taweryawer.entities.enums.OrderStatus;
+import taweryawer.repository.OrderRepository;
 import taweryawer.repository.UserRepository;
+import taweryawer.service.OrderService;
 
-import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
@@ -31,6 +32,8 @@ import static org.assertj.core.api.Assertions.*;
 @ExtendWith({FlywayTestExtension.class})
 @EnableAutoConfiguration
 @EntityScan("taweryawer")
+@ActiveProfiles("test")
+@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 public class SomeDBTests {
 
     @Autowired
@@ -39,16 +42,22 @@ public class SomeDBTests {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private OrderService orderService;
+
+    @Autowired
+    private OrderRepository orderRepository;
+
     @Test
     @DisplayName("getUser")
+    @FlywayTest
     public void getUser() throws Exception {
         User user = userRepository.getUserByTelegramId("test");
         assertThat(user.getMachineId()).isEqualTo("test");
     }
 
-    @Test
-    @FlywayTest
-    public void CreateFoodWithCategoryAndUserThenSaveOrderAndOrderPieceThenFindAndCheck() {
+    @BeforeEach
+    public void initWithSomeFoodCategoryAndUser() {
         Category category = new Category();
         category.setName("testcategory");
         testEntityManager.persist(category);
@@ -65,6 +74,12 @@ public class SomeDBTests {
         user.setName("testname");
         user.setMachineId("testmachineid");
         testEntityManager.persist(user);
+    }
+
+    @Test
+    @FlywayTest
+    public void createFoodWithCategoryAndUserThenSaveOrderAndOrderPieceThenFindAndCheck() throws Exception {
+        User user = userRepository.getUserByTelegramId("testmachineid");
 
         Order order = new Order();
         order.setOrderStatus(OrderStatus.NEW);
@@ -78,6 +93,7 @@ public class SomeDBTests {
         order.setOrderPieces(orderPieces);
         testEntityManager.persist(order);
 
+        testEntityManager.flush();
 
         Order orderToVerifyValues = testEntityManager.find(Order.class, 1L);
 
@@ -89,8 +105,31 @@ public class SomeDBTests {
         assertThat(orderToVerifyValues.getOrderStatus()).isEqualTo(OrderStatus.NEW);
         assertThat(pieceToVerifyValues.getQuantity()).isEqualTo(2);
         assertThat(userToVerifyValues.getName()).isEqualTo("testname");
-        assertThat(foodToVerifyValues.getTitle()).isEqualTo("testtitile");
+        assertThat(foodToVerifyValues.getTitle()).isEqualTo("testtitle");
         assertThat(foodToVerifyValues.getPriceKharkiv()).isEqualTo(100);
         assertThat(categoryToVerifyValues.getName()).isEqualTo("testcategory");
+    }
+
+    @Test
+    @FlywayTest
+    public void orderCreateAddPieceIncreaseQuantityDecreaseQuantityTests() throws Exception {
+        Long id = orderService.addPieceToOrder("testmachineid", 1L);
+
+        Order order = orderRepository.getNewOrderByTelegramIdOrCreate("testmachineid");
+        assertThat(id).isEqualTo(1L);
+        assertThat(order).isNotNull();
+        assertThat(order.getOrderStatus()).isEqualTo(OrderStatus.NEW);
+        assertThat(order.getUser().getMachineId()).isEqualTo("testmachineid");
+        assertThat(order.getOrderPieces().get(0).getFood().getTitle()).isEqualTo("testtitle");
+        assertThat(order.getOrderPieces().get(0).getQuantity()).isEqualTo(1);
+
+        orderService.increaseOrderPieceQuantityByOne(id);
+        assertThat(order.getOrderPieces().get(0).getQuantity()).isEqualTo(2);
+
+        orderService.decreaseOrderPieceQuantityByOne(id);
+        assertThat(order.getOrderPieces().get(0).getQuantity()).isEqualTo(1);
+
+        orderService.decreaseOrderPieceQuantityByOne(id);
+        assertThat(order.getOrderPieces().get(0).getQuantity()).isEqualTo(1);
     }
 }
