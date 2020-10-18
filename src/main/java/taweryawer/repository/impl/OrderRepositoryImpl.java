@@ -50,6 +50,8 @@ public class OrderRepositoryImpl implements OrderRepository {
     @Override
     public void addOrderPieceToOrder(Long orderId, OrderPiece piece) {
         Order order = entityManager.find(Order.class, orderId);
+        order.getOrderPieces().removeIf(orderPiece -> orderPiece.getFood().getId().equals(piece.getFood().getId()));
+        piece.setOrder(order);
         order.getOrderPieces().add(piece);
         entityManager.persist(order);
     }

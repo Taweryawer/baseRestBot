@@ -6,7 +6,6 @@ import taweryawer.entities.enums.OrderStatus;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -19,7 +18,7 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToMany(cascade = CascadeType.PERSIST, orphanRemoval = true, mappedBy = "id")
+    @OneToMany(cascade = CascadeType.PERSIST, orphanRemoval = true, mappedBy = "order")
     private List<OrderPiece> orderPieces;
 
     @ManyToOne

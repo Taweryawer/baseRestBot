@@ -20,9 +20,10 @@ public class InlineKeyboardBuilder {
        return this;
     }
 
-    public void finishRow() {
+    public InlineKeyboardBuilder finishRow() {
         keyboard.add(currentRow);
         currentRow = new ArrayList<>();
+        return this;
     }
 
     public InlineKeyboardMarkup build() {

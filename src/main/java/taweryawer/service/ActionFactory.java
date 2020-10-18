@@ -52,4 +52,14 @@ public class ActionFactory {
     public InlineQueryAction inlineQueryAction() {
         return null;
     }
+
+    @Lookup
+    public CallbackAction callbackAction() {
+        return null;
+    }
+
+    @Lookup
+    public AddAction addAction() {
+        return null;
+    }
 }
