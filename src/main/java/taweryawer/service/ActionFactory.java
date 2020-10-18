@@ -62,4 +62,9 @@ public class ActionFactory {
     public AddAction addAction() {
         return null;
     }
+
+    @Lookup
+    public ChangingQuantityAction changingQuantityAction() {
+        return null;
+    }
 }

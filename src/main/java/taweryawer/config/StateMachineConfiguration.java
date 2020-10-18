@@ -49,7 +49,7 @@ public class StateMachineConfiguration extends EnumStateMachineConfigurerAdapter
     public void configure(StateMachineTransitionConfigurer<UserState, UserEvent> transitions) throws Exception {
         transitions
                 .withExternal()
-                    .source(UserState.NORMAL).target(UserState.TYPING_NAME).event(UserEvent.START).action(actionFactory.startAction(), actionFactory.errorAction())
+                .source(UserState.NORMAL).target(UserState.TYPING_NAME).event(UserEvent.START).action(actionFactory.startAction(), actionFactory.errorAction())
                 .and()
                 .withExternal()
                 .source(UserState.TYPING_NAME).target(UserState.TYPING_NUMBER).event(UserEvent.MESSAGE).action(actionFactory.persistNameAction(), actionFactory.errorAction())
@@ -77,6 +77,9 @@ public class StateMachineConfiguration extends EnumStateMachineConfigurerAdapter
                 .and()
                 .withInternal()
                 .source(UserState.NORMAL).event(UserEvent.ADDORDERPIECE).action(actionFactory.addAction(), actionFactory.errorAction())
+                .and()
+                .withInternal()
+                .source(UserState.NORMAL).event(UserEvent.CHANGINGQUANTITY).action(actionFactory.changingQuantityAction(), actionFactory.errorAction())
         ;
     }
 

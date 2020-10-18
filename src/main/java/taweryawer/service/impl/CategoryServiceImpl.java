@@ -32,6 +32,7 @@ public class CategoryServiceImpl implements CategoryService {
             counter++;
             if (counter == 2) {
                 builder.finishRow();
+                counter = 0;
             }
         }
         builder.finishRow();

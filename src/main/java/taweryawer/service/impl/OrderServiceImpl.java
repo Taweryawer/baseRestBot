@@ -30,17 +30,19 @@ public class OrderServiceImpl implements OrderService {
     private Log log = LogFactory.getLog(OrderServiceImpl.class);
 
     @Override
-    public void increaseOrderPieceQuantityByOne(Long pieceId) {
+    public Integer increaseOrderPieceQuantityByOne(Long pieceId) {
         OrderPiece orderPiece = orderPieceRepository.getOrderPieceByid(pieceId);
         orderPiece.setQuantity(orderPiece.getQuantity() + 1);
+        return orderPiece.getQuantity();
     }
 
     @Override
-    public void decreaseOrderPieceQuantityByOne(Long pieceId) {
+    public Integer decreaseOrderPieceQuantityByOne(Long pieceId) {
         OrderPiece orderPiece = orderPieceRepository.getOrderPieceByid(pieceId);
-        if(orderPiece.getQuantity() > 1) {
+        if (orderPiece.getQuantity() > 1) {
             orderPiece.setQuantity(orderPiece.getQuantity() - 1);
         }
+        return orderPiece.getQuantity();
     }
 
     @Override

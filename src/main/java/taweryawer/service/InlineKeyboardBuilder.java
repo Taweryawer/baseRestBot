@@ -38,7 +38,6 @@ public class InlineKeyboardBuilder {
         InlineKeyboardButton button = new InlineKeyboardButton(text);
         button.setSwitchInlineQueryCurrentChat(text);
         currentRow.add(button);
-        finishRow();
         return this;
     }
 }
