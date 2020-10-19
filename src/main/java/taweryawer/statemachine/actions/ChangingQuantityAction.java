@@ -54,7 +54,12 @@ public class ChangingQuantityAction implements Action<UserState, UserEvent> {
 
 
             EditMessageReplyMarkup editMessageReplyMarkup = new EditMessageReplyMarkup();
-            editMessageReplyMarkup.setInlineMessageId(inlineMessageId);
+            if (update.getCallbackQuery().getMessage() != null) {
+                editMessageReplyMarkup.setMessageId(update.getCallbackQuery().getMessage().getMessageId());
+                editMessageReplyMarkup.setChatId(update.getCallbackQuery().getFrom().getId().toString());
+            } else {
+                editMessageReplyMarkup.setInlineMessageId(inlineMessageId);
+            }
             editMessageReplyMarkup.setReplyMarkup(builder
                     .addButton("➖", "minus " + pieceId)
                     .addButton(newQuantity + " шт.", "stub")

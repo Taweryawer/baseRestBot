@@ -36,6 +36,8 @@ public class CallbackAction implements Action<UserState, UserEvent> {
                 stateMachine.sendEvent(messageBuilderBuilder.build(UserEvent.CHANGINGQUANTITY));
             } else if (data.startsWith("remove")) {
                 stateMachine.sendEvent(messageBuilderBuilder.build(UserEvent.REMOVINGPIECE));
+            } else if (data.equals("basket")) {
+                stateMachine.sendEvent(messageBuilderBuilder.build(UserEvent.SHOWBASKET));
             }
         } catch (Exception e) {
             throw new RuntimeException(e);

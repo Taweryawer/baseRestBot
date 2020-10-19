@@ -72,4 +72,9 @@ public class ActionFactory {
     public RemovePieceAction removePieceAction() {
         return null;
     }
+
+    @Lookup
+    public ShowBasketAction showBasketAction() {
+        return null;
+    }
 }

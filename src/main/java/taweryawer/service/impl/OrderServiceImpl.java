@@ -13,6 +13,8 @@ import taweryawer.repository.OrderRepository;
 import taweryawer.service.OrderService;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @Transactional
@@ -63,4 +65,11 @@ public class OrderServiceImpl implements OrderService {
         OrderPiece piece = orderPieceRepository.getOrderPieceByid(pieceId);
         piece.getOrder().getOrderPieces().remove(piece);
     }
+
+    @Override
+    public List<OrderPiece> getOrderPiecesForOrder(String telegramId) {
+        return new ArrayList<>(orderRepository.getNewOrderByTelegramIdOrCreate(telegramId).getOrderPieces());
+    }
+
+
 }

@@ -29,7 +29,7 @@ public class RemovePieceAction implements Action<UserState, UserEvent> {
     public void execute(StateContext<UserState, UserEvent> context) {
         try {
             final Update update = (Update) context.getMessageHeader("update");
-            String telegramId = update.getCallbackQuery().getId();
+            String telegramId = update.getCallbackQuery().getFrom().getId().toString();
             Long pieceId = Long.valueOf(update.getCallbackQuery().getData().split(" ")[1]);
 
             orderService.removeOrderPieceFromOrder(pieceId);
