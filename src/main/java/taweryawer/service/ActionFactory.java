@@ -67,4 +67,9 @@ public class ActionFactory {
     public ChangingQuantityAction changingQuantityAction() {
         return null;
     }
+
+    @Lookup
+    public RemovePieceAction removePieceAction() {
+        return null;
+    }
 }

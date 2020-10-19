@@ -57,4 +57,10 @@ public class OrderServiceImpl implements OrderService {
         orderRepository.addOrderPieceToOrder(order.getId(), piece);
         return piece.getId();
     }
+
+    @Override
+    public void removeOrderPieceFromOrder(Long pieceId) {
+        OrderPiece piece = orderPieceRepository.getOrderPieceByid(pieceId);
+        piece.getOrder().getOrderPieces().remove(piece);
+    }
 }

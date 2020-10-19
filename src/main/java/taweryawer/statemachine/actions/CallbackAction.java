@@ -34,6 +34,8 @@ public class CallbackAction implements Action<UserState, UserEvent> {
                 stateMachine.sendEvent(messageBuilderBuilder.build(UserEvent.ADDORDERPIECE));
             } else if (data.startsWith("plus") || data.startsWith("minus")) {
                 stateMachine.sendEvent(messageBuilderBuilder.build(UserEvent.CHANGINGQUANTITY));
+            } else if (data.startsWith("remove")) {
+                stateMachine.sendEvent(messageBuilderBuilder.build(UserEvent.REMOVINGPIECE));
             }
         } catch (Exception e) {
             throw new RuntimeException(e);

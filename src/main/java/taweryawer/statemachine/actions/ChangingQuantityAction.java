@@ -60,8 +60,6 @@ public class ChangingQuantityAction implements Action<UserState, UserEvent> {
                     .addButton(newQuantity + " шт.", "stub")
                     .addButton("➕", "plus " + pieceId)
                     .finishRow()
-                    .addButton("Видалити з кошика❌", "remove " + pieceId)
-                    .finishRow()
                     .addButton("Перейти до оформлення замовлення✅", "proceed")
                     .finishRow()
                     .addButton("Меню\uD83D\uDCD5", "menu")

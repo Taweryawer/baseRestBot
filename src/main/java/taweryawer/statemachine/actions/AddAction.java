@@ -40,8 +40,6 @@ public class AddAction implements Action<UserState, UserEvent> {
                     .addButton("1 шт.", "stub")
                     .addButton("➕", "plus " + id)
                     .finishRow()
-                    .addButton("Видалити з кошика❌", "remove " + id)
-                    .finishRow()
                     .addButton("Перейти до оформлення замовлення✅", "proceed")
                     .finishRow()
                     .addButton("Меню\uD83D\uDCD5", "menu")

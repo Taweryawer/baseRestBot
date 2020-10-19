@@ -80,6 +80,9 @@ public class StateMachineConfiguration extends EnumStateMachineConfigurerAdapter
                 .and()
                 .withInternal()
                 .source(UserState.NORMAL).event(UserEvent.CHANGINGQUANTITY).action(actionFactory.changingQuantityAction(), actionFactory.errorAction())
+                .and()
+                .withInternal()
+                .source(UserState.NORMAL).event(UserEvent.REMOVINGPIECE).action(actionFactory.removePieceAction(), actionFactory.errorAction())
         ;
     }
 

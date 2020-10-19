@@ -6,4 +6,6 @@ public interface OrderService {
     public Integer decreaseOrderPieceQuantityByOne(Long pieceId);
 
     public Long addPieceToOrder(String telegramId, Long foodId);
+
+    public void removeOrderPieceFromOrder(Long pieceId);
 }
