@@ -38,6 +38,8 @@ public class CallbackAction implements Action<UserState, UserEvent> {
                 stateMachine.sendEvent(messageBuilderBuilder.build(UserEvent.REMOVINGPIECE));
             } else if (data.equals("basket")) {
                 stateMachine.sendEvent(messageBuilderBuilder.build(UserEvent.SHOWBASKET));
+            } else if (data.equals("menu")) {
+                stateMachine.sendEvent(messageBuilderBuilder.build(UserEvent.MENU));
             }
         } catch (Exception e) {
             throw new RuntimeException(e);
