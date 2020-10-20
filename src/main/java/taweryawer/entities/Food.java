@@ -2,9 +2,9 @@ package taweryawer.entities;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import taweryawer.entities.Category;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Data
@@ -24,7 +24,11 @@ public class Food {
     private String weight;
     private String description;
     private String photoURL;
-    private Integer priceKyiv;
-    private Integer priceKharkiv;
+
+    @OneToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "food_price_label",
+            joinColumns = @JoinColumn(name = "food_id", referencedColumnName = "id", nullable = false),
+            inverseJoinColumns = @JoinColumn(name = "price_label_id", referencedColumnName = "id", nullable = false))
+    private List<PriceLabel> priceLabels;
 
 }

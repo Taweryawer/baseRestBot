@@ -12,7 +12,6 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import taweryawer.config.TestBeansConfig;
 import taweryawer.entities.*;
@@ -24,7 +23,7 @@ import taweryawer.service.OrderService;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 @ContextConfiguration(classes = {TestBeansConfig.class})
 @DataJpaTest
@@ -64,9 +63,20 @@ public class SomeDBTests {
         Category category1 = testEntityManager.find(Category.class, 1L);
         assertThat(category1).isNotNull();
 
+        PriceCategory priceCategory = new PriceCategory();
+        priceCategory.setTitle("testPriceCategory");
+        testEntityManager.persist(priceCategory);
+
+        PriceLabel priceLabel = new PriceLabel();
+        priceLabel.setPriceCategory(priceCategory);
+        priceLabel.setValue(100.34);
+        testEntityManager.persist(priceLabel);
+
         Food food = new Food();
         food.setCategory(testEntityManager.getEntityManager().getReference(Category.class, 1L));
-        food.setPriceKharkiv(100);
+        ArrayList<PriceLabel> priceLabels = new ArrayList<>();
+        priceLabels.add(priceLabel);
+        food.setPriceLabels(priceLabels);
         food.setTitle("testtitle");
         testEntityManager.persist(food);
 
@@ -106,7 +116,8 @@ public class SomeDBTests {
         assertThat(pieceToVerifyValues.getQuantity()).isEqualTo(2);
         assertThat(userToVerifyValues.getName()).isEqualTo("testname");
         assertThat(foodToVerifyValues.getTitle()).isEqualTo("testtitle");
-        assertThat(foodToVerifyValues.getPriceKharkiv()).isEqualTo(100);
+        assertThat(foodToVerifyValues.getPriceLabels().get(0).getValue()).isEqualTo(100.34);
+        assertThat(foodToVerifyValues.getPriceLabels().get(0).getPriceCategory().getTitle()).isEqualTo("testPriceCategory");
         assertThat(categoryToVerifyValues.getName()).isEqualTo("testcategory");
     }
 
