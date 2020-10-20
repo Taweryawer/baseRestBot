@@ -17,13 +17,13 @@ public class InlineKeyboardBuilder {
        InlineKeyboardButton button = new InlineKeyboardButton(text);
        button.setCallbackData(data);
        currentRow.add(button);
-        checkRow();
        return this;
     }
 
-    private void finishRow() {
+    public InlineKeyboardBuilder finishRow() {
         keyboard.add(currentRow);
         currentRow = new ArrayList<>();
+        return this;
     }
 
     public InlineKeyboardMarkup build() {
@@ -34,17 +34,10 @@ public class InlineKeyboardBuilder {
         return markup;
     }
 
-    private void checkRow() {
-        if (currentRow.size() >= 2) {
-            finishRow();
-        }
-    }
-
     public InlineKeyboardBuilder addInlineQueryButton(String text) {
         InlineKeyboardButton button = new InlineKeyboardButton(text);
         button.setSwitchInlineQueryCurrentChat(text);
         currentRow.add(button);
-        checkRow();
         return this;
     }
 }

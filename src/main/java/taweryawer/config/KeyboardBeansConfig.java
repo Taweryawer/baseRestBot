@@ -18,7 +18,7 @@ public class KeyboardBeansConfig {
     public ReplyKeyboardMarkup mainKeyboard() {
         return builder.add("Профіль")
                 .add("Меню")
-                .add("Корзина")
+                .add("Кошик")
                 .build();
     }
 }

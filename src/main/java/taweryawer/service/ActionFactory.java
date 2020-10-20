@@ -52,4 +52,34 @@ public class ActionFactory {
     public InlineQueryAction inlineQueryAction() {
         return null;
     }
+
+    @Lookup
+    public CallbackAction callbackAction() {
+        return null;
+    }
+
+    @Lookup
+    public AddAction addAction() {
+        return null;
+    }
+
+    @Lookup
+    public ChangingQuantityAction changingQuantityAction() {
+        return null;
+    }
+
+    @Lookup
+    public RemovePieceAction removePieceAction() {
+        return null;
+    }
+
+    @Lookup
+    public ShowBasketAction showBasketAction() {
+        return null;
+    }
+
+    @Lookup
+    public ProceedToConfirmationAction proceedToConfirmationAction() {
+        return null;
+    }
 }

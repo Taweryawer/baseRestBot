@@ -33,6 +33,10 @@ public class MessageAction implements Action<UserState, UserEvent> {
                 currentStateMachine.sendEvent(messageBuilderBuilder.build(UserEvent.MENU));
                 break;
             }
+            case "Кошик": {
+                currentStateMachine.sendEvent(messageBuilderBuilder.build(UserEvent.SHOWBASKET));
+                break;
+            }
         }
     }
 }

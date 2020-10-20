@@ -1,7 +1,6 @@
 package taweryawer.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 import taweryawer.entities.Category;
@@ -27,9 +26,16 @@ public class CategoryServiceImpl implements CategoryService {
 
     public InlineKeyboardMarkup getCategoriesKeyboard() {
         List<Category> categories = getAllCategories();
+        int counter = 0;
         for (Category category : categories) {
             builder.addInlineQueryButton(category.getName());
+            counter++;
+            if (counter == 2) {
+                builder.finishRow();
+                counter = 0;
+            }
         }
+        builder.finishRow();
         return builder.build();
     }
 }
