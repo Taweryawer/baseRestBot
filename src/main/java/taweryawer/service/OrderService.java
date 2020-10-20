@@ -1,6 +1,8 @@
 package taweryawer.service;
 
 import taweryawer.entities.OrderPiece;
+import taweryawer.entities.enums.OrderStatus;
+import taweryawer.entities.enums.PaymentMethod;
 
 import java.util.List;
 
@@ -14,4 +16,6 @@ public interface OrderService {
     public void removeOrderPieceFromOrder(Long pieceId);
 
     public List<OrderPiece> getOrderPiecesForOrder(String telegramId);
+
+    void confirmOrder(String telegramId, PaymentMethod paymentMethod, OrderStatus newOrderStatus);
 }

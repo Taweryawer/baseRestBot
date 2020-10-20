@@ -7,12 +7,15 @@ import org.springframework.stereotype.Service;
 import taweryawer.entities.Food;
 import taweryawer.entities.Order;
 import taweryawer.entities.OrderPiece;
+import taweryawer.entities.enums.OrderStatus;
+import taweryawer.entities.enums.PaymentMethod;
 import taweryawer.repository.FoodRepository;
 import taweryawer.repository.OrderPieceRepository;
 import taweryawer.repository.OrderRepository;
 import taweryawer.service.OrderService;
 
 import javax.transaction.Transactional;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -69,6 +72,14 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public List<OrderPiece> getOrderPiecesForOrder(String telegramId) {
         return new ArrayList<>(orderRepository.getNewOrderByTelegramIdOrCreate(telegramId).getOrderPieces());
+    }
+
+    @Override
+    public void confirmOrder(String telegramId, PaymentMethod paymentMethod, OrderStatus newOrderStatus) {
+        Order order = orderRepository.getNewOrderByTelegramIdOrCreate(telegramId);
+        order.setPaymentMethod(paymentMethod);
+        order.setOrderStatus(newOrderStatus);
+        order.setDateTime(LocalDateTime.now());
     }
 
 

@@ -82,4 +82,9 @@ public class ActionFactory {
     public ProceedToConfirmationAction proceedToConfirmationAction() {
         return null;
     }
+
+    @Lookup
+    public CashPaymentAction cashPaymentAction() {
+        return null;
+    }
 }
