@@ -86,6 +86,9 @@ public class StateMachineConfiguration extends EnumStateMachineConfigurerAdapter
                 .and()
                 .withInternal()
                 .source(UserState.NORMAL).event(UserEvent.SHOWBASKET).action(actionFactory.showBasketAction(), actionFactory.errorAction())
+                .and()
+                .withInternal()
+                .source(UserState.NORMAL).event(UserEvent.PROCEEDTOCONFIRMATION).action(actionFactory.proceedToConfirmationAction(), actionFactory.errorAction())
         ;
     }
 

@@ -40,6 +40,8 @@ public class CallbackAction implements Action<UserState, UserEvent> {
                 stateMachine.sendEvent(messageBuilderBuilder.build(UserEvent.SHOWBASKET));
             } else if (data.equals("menu")) {
                 stateMachine.sendEvent(messageBuilderBuilder.build(UserEvent.MENU));
+            } else if (data.equals("proceed")) {
+                stateMachine.sendEvent(messageBuilderBuilder.build(UserEvent.PROCEEDTOCONFIRMATION));
             }
         } catch (Exception e) {
             throw new RuntimeException(e);

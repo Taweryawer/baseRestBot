@@ -77,4 +77,9 @@ public class ActionFactory {
     public ShowBasketAction showBasketAction() {
         return null;
     }
+
+    @Lookup
+    public ProceedToConfirmationAction proceedToConfirmationAction() {
+        return null;
+    }
 }
