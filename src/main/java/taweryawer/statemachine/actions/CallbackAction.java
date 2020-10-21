@@ -44,6 +44,8 @@ public class CallbackAction implements Action<UserState, UserEvent> {
                 stateMachine.sendEvent(messageBuilderBuilder.build(UserEvent.PROCEEDTOCONFIRMATION));
             } else if (data.equals("cash")) {
                 stateMachine.sendEvent(messageBuilderBuilder.build(UserEvent.CONFIRMCASHORDER));
+            } else if (data.equals("liqpay")) {
+                stateMachine.sendEvent(messageBuilderBuilder.build(UserEvent.CONFIRMLIQPAYORDER));
             }
         } catch (Exception e) {
             throw new RuntimeException(e);

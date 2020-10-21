@@ -25,4 +25,10 @@ public enum OrderStatus {
             return "Скасований оператором❌";
         }
     },
+    AWAITING_LIQPAY_PAYMENT {
+        @Override
+        public String toString() {
+            return "Очікується оплата через Liqpay";
+        }
+    }
 }

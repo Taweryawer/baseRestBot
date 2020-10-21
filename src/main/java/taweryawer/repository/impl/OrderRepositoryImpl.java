@@ -56,6 +56,11 @@ public class OrderRepositoryImpl implements OrderRepository {
         entityManager.persist(order);
     }
 
+    @Override
+    public Order getOrderById(Long orderId) {
+        return entityManager.find(Order.class, orderId);
+    }
+
     private Order createNewOrderForUser(String telegramId) {
         try {
             Order order = new Order();

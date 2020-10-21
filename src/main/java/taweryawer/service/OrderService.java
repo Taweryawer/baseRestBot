@@ -18,4 +18,8 @@ public interface OrderService {
     public List<OrderPiece> getOrderPiecesForOrder(String telegramId);
 
     void confirmOrder(String telegramId, PaymentMethod paymentMethod, OrderStatus newOrderStatus);
+
+    String getOrderSummary(Long orderId);
+
+    Double getPriceSum(Long orderId);
 }

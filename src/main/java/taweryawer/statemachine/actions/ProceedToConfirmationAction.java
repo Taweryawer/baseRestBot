@@ -9,7 +9,10 @@ import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.ParseMode;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
+import taweryawer.entities.Order;
+import taweryawer.repository.OrderRepository;
 import taweryawer.service.InlineKeyboardBuilder;
+import taweryawer.service.OrderService;
 import taweryawer.statemachine.UserEvent;
 import taweryawer.statemachine.UserState;
 
@@ -24,6 +27,12 @@ public class ProceedToConfirmationAction implements Action<UserState, UserEvent>
     @Autowired
     private InlineKeyboardBuilder inlineKeyboardBuilder;
 
+    @Autowired
+    private OrderService orderService;
+
+    @Autowired
+    private OrderRepository orderRepository;
+
     @Value("#{'${paymentconfig.methods}'.split(',')}")
     private List<String> paymentMethods;
 
@@ -33,7 +42,8 @@ public class ProceedToConfirmationAction implements Action<UserState, UserEvent>
             final Update update = (Update) context.getMessageHeader("update");
             String telegramId = update.getCallbackQuery().getFrom().getId().toString();
 
-            SendMessage sm = new SendMessage(telegramId, "*Будь ласка, оберіть тип оплати.*");
+            Order order = orderRepository.getNewOrderByTelegramIdOrCreate(telegramId);
+            SendMessage sm = new SendMessage(telegramId, orderService.getOrderSummary(order.getId()) + "\n\n*Будь ласка, оберіть тип оплати.*");
             sm.setParseMode(ParseMode.MARKDOWN);
 
             if (paymentMethods.contains("cash")) {

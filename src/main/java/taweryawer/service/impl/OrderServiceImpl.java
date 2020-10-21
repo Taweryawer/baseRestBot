@@ -82,5 +82,36 @@ public class OrderServiceImpl implements OrderService {
         order.setDateTime(LocalDateTime.now());
     }
 
+    //TODO different price categories support
+    @Override
+    public String getOrderSummary(Long orderId) {
+        Order order = orderRepository.getOrderById(orderId);
+        StringBuilder sb = new StringBuilder("*Ваше замовлення:*\n\n");
+        Double summary = 0.0;
+
+        for (OrderPiece orderPiece : order.getOrderPieces()) {
+            sb.append("\uD83D\uDD36 *" + orderPiece.getFood().getTitle() + "* x " + orderPiece.getQuantity() + " = ");
+            sb.append(orderPiece.getFood().getPriceLabels().get(0).getValue() + " грн\n");
+            summary += orderPiece.getFood().getPriceLabels().get(0).getValue();
+        }
+        sb.append("\n*Сума:* " + getPriceSum(order.getId()) + " грн");
+
+        return sb.toString();
+    }
+
+    //TODO different price categories support
+    @Override
+    public Double getPriceSum(Long orderId) {
+        Order order = orderRepository.getOrderById(orderId);
+
+        Double summary = 0.0;
+
+        for (OrderPiece orderPiece : order.getOrderPieces()) {
+            summary += orderPiece.getFood().getPriceLabels().get(0).getValue() * orderPiece.getQuantity();
+        }
+
+        return summary;
+    }
+
 
 }

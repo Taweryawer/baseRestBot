@@ -87,4 +87,9 @@ public class ActionFactory {
     public CashPaymentAction cashPaymentAction() {
         return null;
     }
+
+    @Lookup
+    public LiqpayPaymentAction liqpayPaymentAction() {
+        return null;
+    }
 }
