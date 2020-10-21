@@ -37,14 +37,16 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public Integer increaseOrderPieceQuantityByOne(Long pieceId) {
         OrderPiece orderPiece = orderPieceRepository.getOrderPieceByid(pieceId);
-        orderPiece.setQuantity(orderPiece.getQuantity() + 1);
+        if (orderPiece.getOrder().getOrderStatus().equals(OrderStatus.NEW)) {
+            orderPiece.setQuantity(orderPiece.getQuantity() + 1);
+        }
         return orderPiece.getQuantity();
     }
 
     @Override
     public Integer decreaseOrderPieceQuantityByOne(Long pieceId) {
         OrderPiece orderPiece = orderPieceRepository.getOrderPieceByid(pieceId);
-        if (orderPiece.getQuantity() > 1) {
+        if (orderPiece.getQuantity() > 1 && orderPiece.getOrder().getOrderStatus().equals(OrderStatus.NEW)) {
             orderPiece.setQuantity(orderPiece.getQuantity() - 1);
         }
         return orderPiece.getQuantity();
@@ -66,7 +68,9 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public void removeOrderPieceFromOrder(Long pieceId) {
         OrderPiece piece = orderPieceRepository.getOrderPieceByid(pieceId);
-        piece.getOrder().getOrderPieces().remove(piece);
+        if (piece.getOrder().getOrderStatus().equals(OrderStatus.NEW)) {
+            piece.getOrder().getOrderPieces().remove(piece);
+        }
     }
 
     @Override
@@ -111,6 +115,13 @@ public class OrderServiceImpl implements OrderService {
         }
 
         return summary;
+    }
+
+    @Override
+    public void confirmLiqpayPayment(Long orderId) {
+        Order order = orderRepository.getOrderById(orderId);
+        order.setOrderStatus(OrderStatus.CONFIRMED_LIQPAY_PAYMENT);
+        order.setDateTime(LocalDateTime.now());
     }
 
 

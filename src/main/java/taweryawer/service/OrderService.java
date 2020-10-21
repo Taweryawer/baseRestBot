@@ -22,4 +22,6 @@ public interface OrderService {
     String getOrderSummary(Long orderId);
 
     Double getPriceSum(Long orderId);
+
+    void confirmLiqpayPayment(Long orderId);
 }

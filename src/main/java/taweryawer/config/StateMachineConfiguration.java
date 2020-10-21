@@ -95,6 +95,12 @@ public class StateMachineConfiguration extends EnumStateMachineConfigurerAdapter
                 .and()
                 .withInternal()
                 .source(UserState.NORMAL).event(UserEvent.CONFIRMLIQPAYORDER).action(actionFactory.liqpayPaymentAction(), actionFactory.errorAction())
+                .and()
+                .withInternal()
+                .source(UserState.NORMAL).event(UserEvent.PRECHECKOUTQUERY).action(actionFactory.preCheckoutQueryAction(), actionFactory.errorAction())
+                .and()
+                .withInternal()
+                .source(UserState.NORMAL).event(UserEvent.SUCCESSFULPAYMENT).action(actionFactory.successfulPaymentAction(), actionFactory.errorAction())
         ;
     }
 

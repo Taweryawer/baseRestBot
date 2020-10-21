@@ -30,5 +30,11 @@ public enum OrderStatus {
         public String toString() {
             return "Очікується оплата через Liqpay";
         }
+    },
+    CONFIRMED_LIQPAY_PAYMENT {
+        @Override
+        public String toString() {
+            return "Замовлення оплачено за допомогою Liqpay, очікує підтвердження оператором.";
+        }
     }
 }

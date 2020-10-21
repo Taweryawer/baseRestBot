@@ -92,4 +92,14 @@ public class ActionFactory {
     public LiqpayPaymentAction liqpayPaymentAction() {
         return null;
     }
+
+    @Lookup
+    public PreCheckoutQueryAction preCheckoutQueryAction() {
+        return null;
+    }
+
+    @Lookup
+    public SuccessfulPaymentAction successfulPaymentAction() {
+        return null;
+    }
 }

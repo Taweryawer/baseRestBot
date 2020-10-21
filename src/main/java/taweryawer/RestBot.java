@@ -9,13 +9,11 @@ import org.springframework.statemachine.StateMachine;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.objects.Update;
-import taweryawer.service.ActionFactory;
 import taweryawer.service.MessageBuilderBuilder;
 import taweryawer.service.StateMachineService;
 import taweryawer.service.UserService;
 import taweryawer.statemachine.UserEvent;
 import taweryawer.statemachine.UserState;
-import taweryawer.statemachine.actions.ErrorAction;
 
 @Component
 public class RestBot extends TelegramLongPollingBot {
@@ -40,7 +38,11 @@ public class RestBot extends TelegramLongPollingBot {
                 StateMachine<UserState, UserEvent> stateMachine = stateMachineService.getStateMachine(update.getMessage().getFrom().getId().toString());
                 messageBuilderBuilder
                         .addHeader("update", update);
-                if(update.getMessage().getText().equals("/start")) {
+                if (update.getMessage().hasSuccessfulPayment()) {
+                    stateMachine.sendEvent(messageBuilderBuilder.build(UserEvent.SUCCESSFULPAYMENT));
+                    return;
+                }
+                if (update.getMessage().getText().equals("/start")) {
                     userService.getUserByTelegramId(update.getMessage().getFrom().getId().toString());
                     Message<UserEvent> message = messageBuilderBuilder.build(UserEvent.START);
                     stateMachine.sendEvent(message);
@@ -59,6 +61,12 @@ public class RestBot extends TelegramLongPollingBot {
                 messageBuilderBuilder
                         .addHeader("update", update);
                 stateMachine.sendEvent(messageBuilderBuilder.build(UserEvent.CALLBACK));
+            }
+            if (update.hasPreCheckoutQuery()) {
+                StateMachine<UserState, UserEvent> stateMachine = stateMachineService.getStateMachine(update.getPreCheckoutQuery().getFrom().getId().toString());
+                messageBuilderBuilder
+                        .addHeader("update", update);
+                stateMachine.sendEvent(messageBuilderBuilder.build(UserEvent.PRECHECKOUTQUERY));
             }
         } catch (Exception e) {
             log.error("Something went wrong", e);
