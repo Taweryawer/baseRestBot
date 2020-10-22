@@ -82,4 +82,24 @@ public class ActionFactory {
     public ProceedToConfirmationAction proceedToConfirmationAction() {
         return null;
     }
+
+    @Lookup
+    public CashPaymentAction cashPaymentAction() {
+        return null;
+    }
+
+    @Lookup
+    public LiqpayPaymentAction liqpayPaymentAction() {
+        return null;
+    }
+
+    @Lookup
+    public PreCheckoutQueryAction preCheckoutQueryAction() {
+        return null;
+    }
+
+    @Lookup
+    public SuccessfulPaymentAction successfulPaymentAction() {
+        return null;
+    }
 }

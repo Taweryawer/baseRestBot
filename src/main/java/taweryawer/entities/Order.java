@@ -3,6 +3,7 @@ package taweryawer.entities;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import taweryawer.entities.enums.OrderStatus;
+import taweryawer.entities.enums.PaymentMethod;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -27,6 +28,10 @@ public class Order {
 
     @Enumerated
     private OrderStatus orderStatus;
+
+    @Enumerated
+    @Column(name = "payment_method")
+    private PaymentMethod paymentMethod;
 
     private LocalDateTime dateTime;
 }

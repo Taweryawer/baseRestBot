@@ -60,17 +60,21 @@ public class ChangingQuantityAction implements Action<UserState, UserEvent> {
             } else {
                 editMessageReplyMarkup.setInlineMessageId(inlineMessageId);
             }
-            editMessageReplyMarkup.setReplyMarkup(builder
-                    .addButton("➖", "minus " + pieceId)
+
+            builder.addButton("➖", "minus " + pieceId)
                     .addButton(newQuantity + " шт.", "stub")
                     .addButton("➕", "plus " + pieceId)
-                    .finishRow()
-                    .addButton("Перейти до оформлення замовлення✅", "proceed")
+                    .finishRow();
+            if (inlineMessageId == null) {
+                builder.addButton("Видалити з кошика❌", "remove " + pieceId)
+                        .finishRow();
+            }
+            editMessageReplyMarkup.setReplyMarkup(builder.addButton("Перейти до оформлення замовлення✅", "proceed")
                     .finishRow()
                     .addButton("Меню\uD83D\uDCD5", "menu")
                     .addButton("Кошик\uD83D\uDED2", "basket")
-                    .build()
-            );
+                    .build());
+
 
             bot.execute(editMessageReplyMarkup);
 
