@@ -7,5 +7,27 @@
 <body>
 <div th:insert="common.html :: bootstrapjs"/>
 <div th:insert="common.html :: navbar"/>
+<script src="/js/rowlink.js"></script>
+
+<table class="table table-striped table-dark table-hover">
+    <thead>
+    <tr>
+        <th scope="col">Номер заказа</th>
+        <th scope="col">Имя заказчика</th>
+        <th scope="col">Статус заказа</th>
+        <th scope="col">Способ оплаты</th>
+        <th scope="col">Дата и время заказа</th>
+    </tr>
+    </thead>
+    <tbody th:each="order : ${orders}">
+    <tr th:data-href="${'/o/' + order.getId()}">
+        <th scope="row" th:text="${order.getId()}"/>
+        <td th:text="${order.getUser()?.getName()}"/>
+        <td th:text="${order.getOrderStatus().toString()}"/>
+        <td th:text="${order.getPaymentMethod()?.toString()}"/>
+        <td th:text="${order.getDateTime()}"/>
+    </tr>
+    </tbody>
+</table>
 </body>
 </html>

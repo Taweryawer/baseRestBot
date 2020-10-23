@@ -124,5 +124,12 @@ public class OrderServiceImpl implements OrderService {
         order.setDateTime(LocalDateTime.now());
     }
 
+    @Override
+    public List<Order> getOrdersForPage(Integer page) {
+        Integer lowerBound = (page - 1) * 20 + 1;
+        Integer higherBound = lowerBound + 20;
+        return orderRepository.getOrdersOrderedByWaitingWithLimit(lowerBound, higherBound);
+    }
+
 
 }

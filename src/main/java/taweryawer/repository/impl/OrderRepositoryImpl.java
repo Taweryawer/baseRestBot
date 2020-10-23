@@ -15,6 +15,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import java.util.ArrayList;
+import java.util.List;
 
 @Repository
 public class OrderRepositoryImpl implements OrderRepository {
@@ -59,6 +60,24 @@ public class OrderRepositoryImpl implements OrderRepository {
     @Override
     public Order getOrderById(Long orderId) {
         return entityManager.find(Order.class, orderId);
+    }
+
+    @Override
+    public List<Order> getOrdersOrderedByWaitingWithLimit(Integer lowerBound, Integer higherBound) {
+        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Order> cq = cb.createQuery(Order.class);
+        Root<Order> root = cq.from(Order.class);
+        cq.select(root).where(cb.notEqual(root.get("orderStatus"), OrderStatus.NEW)).orderBy(cb.desc(cb.selectCase()
+                .when(cb.equal(root.get("orderStatus"), OrderStatus.CONFIRMED_LIQPAY_PAYMENT), 5)
+                .when(cb.equal(root.get("orderStatus"), OrderStatus.WAITING), 4)
+                .when(cb.equal(root.get("orderStatus"), OrderStatus.AWAITING_LIQPAY_PAYMENT), 3)
+                .when(cb.equal(root.get("orderStatus"), OrderStatus.CONFIRMED), 2)
+                .when(cb.equal(root.get("orderStatus"), OrderStatus.CANCELED), 1)
+        ));
+        TypedQuery<Order> query = entityManager.createQuery(cq)
+                .setFirstResult(lowerBound)
+                .setMaxResults(higherBound - lowerBound);
+        return query.getResultList();
     }
 
     private Order createNewOrderForUser(String telegramId) {

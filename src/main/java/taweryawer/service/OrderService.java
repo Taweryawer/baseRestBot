@@ -1,5 +1,6 @@
 package taweryawer.service;
 
+import taweryawer.entities.Order;
 import taweryawer.entities.OrderPiece;
 import taweryawer.entities.enums.OrderStatus;
 import taweryawer.entities.enums.PaymentMethod;
@@ -24,4 +25,6 @@ public interface OrderService {
     Double getPriceSum(Long orderId);
 
     void confirmLiqpayPayment(Long orderId);
+
+    List<Order> getOrdersForPage(Integer page);
 }
