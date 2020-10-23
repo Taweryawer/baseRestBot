@@ -19,7 +19,7 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToMany(cascade = CascadeType.PERSIST, orphanRemoval = true, mappedBy = "order")
+    @OneToMany(cascade = CascadeType.PERSIST, orphanRemoval = true, mappedBy = "order", fetch = FetchType.EAGER)
     private List<OrderPiece> orderPieces;
 
     @ManyToOne

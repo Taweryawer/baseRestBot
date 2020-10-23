@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Getting Started: Serving Web Content</title>
+    <title>Заказы</title>
     <th:block th:insert="common.html :: head"/>
 </head>
 <body>
@@ -16,7 +16,7 @@
         <th scope="col">Имя заказчика</th>
         <th scope="col">Статус заказа</th>
         <th scope="col">Способ оплаты</th>
-        <th scope="col">Дата и время заказа</th>
+        <th scope="col">Дата и время оформления/оплаты заказа</th>
     </tr>
     </thead>
     <tbody th:each="order : ${orders}">

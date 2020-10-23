@@ -27,4 +27,6 @@ public interface OrderService {
     void confirmLiqpayPayment(Long orderId);
 
     List<Order> getOrdersForPage(Integer page);
+
+    Order getOrderById(Long orderId);
 }

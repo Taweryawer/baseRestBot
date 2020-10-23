@@ -1,0 +1,34 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Заказы</title>
+    <th:block th:insert="common.html :: head"/>
+</head>
+<body>
+<div th:insert="common.html :: bootstrapjs"/>
+<div th:insert="common.html :: navbar"/>
+
+<h1 th:text="${'Заказ №' + order.getId()}"/>
+<h3>Информация о заказчике</h3>
+<dl>
+    <dt>Имя</dt>
+    <dd th:text="${order.getUser().getName()}"></dd>
+    <dt>Номер телефона</dt>
+    <dd th:text="${order.getUser().getPhoneNumber()}"></dd>
+    <dt>Адрес</dt>
+    <dd th:text="${order.getUser().getAddress()}"></dd>
+</dl>
+<h3>Информация о заказе</h3>
+<dl>
+    <dt>Статус заказа</dt>
+    <dd th:text="${order.getOrderStatus().toString()}"></dd>
+    <dt>Способ оплаты</dt>
+    <dd th:text="${order.getPaymentMethod().toString()}"></dd>
+    <dt>Дата оформления/оплаты заказа</dt>
+    <dd th:text="${order.getDateTime()}"></dd>
+    <dt>Содержание заказа</dt>
+    <dd th:each="line : ${summary}">
+        <div th:text="${line}"/>
+    </dd>
+</dl>
+</body>

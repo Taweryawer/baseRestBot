@@ -95,7 +95,7 @@ public class OrderServiceImpl implements OrderService {
 
         for (OrderPiece orderPiece : order.getOrderPieces()) {
             sb.append("\uD83D\uDD36 *" + orderPiece.getFood().getTitle() + "* x " + orderPiece.getQuantity() + " = ");
-            sb.append(orderPiece.getFood().getPriceLabels().get(0).getValue() + " грн\n");
+            sb.append(orderPiece.getFood().getPriceLabels().get(0).getValue() * orderPiece.getQuantity() + " грн\n");
             summary += orderPiece.getFood().getPriceLabels().get(0).getValue();
         }
         sb.append("\n*Сума:* " + getPriceSum(order.getId()) + " грн");
@@ -129,6 +129,12 @@ public class OrderServiceImpl implements OrderService {
         Integer lowerBound = (page - 1) * 20 + 1;
         Integer higherBound = lowerBound + 20;
         return orderRepository.getOrdersOrderedByWaitingWithLimit(lowerBound, higherBound);
+    }
+
+    @Override
+    public Order getOrderById(Long orderId) {
+        Order order = orderRepository.getOrderById(orderId);
+        return order;
     }
 
 
