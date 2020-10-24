@@ -149,6 +149,11 @@ public class OrderServiceImpl implements OrderService {
         return order;
     }
 
+    @Override
+    public Long getOrdersCount() {
+        return orderRepository.getOrdersCount();
+    }
+
 
     private void convertToDtoAndSendSTOMP(Order order) {
         simpMessagingTemplate.convertAndSend("/orderspage/orders", orderMapper.toDto(order));

@@ -29,4 +29,6 @@ public interface OrderService {
     List<Order> getOrdersForPage(Integer page);
 
     Order getOrderById(Long orderId);
+
+    Long getOrdersCount();
 }

@@ -12,18 +12,18 @@
 <h3>Информация о заказчике</h3>
 <dl>
     <dt>Имя</dt>
-    <dd th:text="${order.getUser().getName()}"></dd>
+    <dd th:text="${order.getUser()?.getName()}"></dd>
     <dt>Номер телефона</dt>
-    <dd th:text="${order.getUser().getPhoneNumber()}"></dd>
+    <dd th:text="${order.getUser()?.getPhoneNumber()}"></dd>
     <dt>Адрес</dt>
-    <dd th:text="${order.getUser().getAddress()}"></dd>
+    <dd th:text="${order.getUser()?.getAddress()}"></dd>
 </dl>
 <h3>Информация о заказе</h3>
 <dl>
     <dt>Статус заказа</dt>
-    <dd th:text="${order.getOrderStatus().toString()}"></dd>
+    <dd th:text="${order.getOrderStatus()?.toString()}"></dd>
     <dt>Способ оплаты</dt>
-    <dd th:text="${order.getPaymentMethod().toString()}"></dd>
+    <dd th:text="${order.getPaymentMethod()?.toString()}"></dd>
     <dt>Дата оформления/оплаты заказа</dt>
     <dd th:text="${order.getDateTime()}"></dd>
     <dt>Содержание заказа</dt>

@@ -80,6 +80,14 @@ public class OrderRepositoryImpl implements OrderRepository {
         return query.getResultList();
     }
 
+    @Override
+    public Long getOrdersCount() {
+        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Long> cq = cb.createQuery(Long.class);
+        cq.select(cb.count(cq.from(Order.class)));
+        return entityManager.createQuery(cq).getSingleResult();
+    }
+
     private Order createNewOrderForUser(String telegramId) {
         try {
             Order order = new Order();

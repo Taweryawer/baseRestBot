@@ -32,6 +32,19 @@
     </tr>
     </tbody>
 </table>
+<nav>
+    <ul class="pagination">
+        <th:block th:each="i : ${#numbers.sequence(1, ordersCount / 20)}">
+            <div th:switch="${i}">
+                <li class="page-item active" th:case="${currentPage}"><a class="page-link"
+                                                                         th:href="${'/orders?page=' + i}"
+                                                                         th:text="${i}"></a></li>
+                <li class="page-item" th:case="*"><a class="page-link" th:href="${'/orders?page=' + i}"
+                                                     th:text="${i}"></a></li>
+            </div>
+        </th:block>
+    </ul>
+</nav>
 <script>
     rowlink();
     connect();

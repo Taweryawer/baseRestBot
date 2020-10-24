@@ -20,6 +20,8 @@ public class OrdersPageController {
     @GetMapping("/orders")
     public String orders(@RequestParam(name = "page", defaultValue = "1") Integer page, Model model) {
         model.addAttribute("orders", orderService.getOrdersForPage(page));
+        model.addAttribute("currentPage", page);
+        model.addAttribute("ordersCount", orderService.getOrdersCount());
         return "orders";
     }
 
