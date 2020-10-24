@@ -4,7 +4,7 @@ public enum OrderStatus {
     NEW {
         @Override
         public String toString() {
-            return "Ще не оформлений";
+            return "Ще не оформлено";
         }
     },
     WAITING {
@@ -16,25 +16,25 @@ public enum OrderStatus {
     CONFIRMED {
         @Override
         public String toString() {
-            return "Підтверджений оператором✅";
+            return "Підтверджено оператором✅";
         }
     },
     CANCELED {
         @Override
         public String toString() {
-            return "Скасований оператором❌";
+            return "Скасовано оператором❌";
         }
     },
     AWAITING_LIQPAY_PAYMENT {
         @Override
         public String toString() {
-            return "Очікується оплата через Liqpay";
+            return "Очікується оплата через Liqpay\uD83D\uDCB3";
         }
     },
     CONFIRMED_LIQPAY_PAYMENT {
         @Override
         public String toString() {
-            return "Замовлення оплачено за допомогою Liqpay, очікує підтвердження оператором.";
+            return "Замовлення оплачено за допомогою Liqpay, очікує підтвердження оператором.⏳";
         }
     }
 }

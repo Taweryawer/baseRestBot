@@ -3,12 +3,14 @@ package taweryawer.service.impl;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
 import taweryawer.entities.Food;
 import taweryawer.entities.Order;
 import taweryawer.entities.OrderPiece;
 import taweryawer.entities.enums.OrderStatus;
 import taweryawer.entities.enums.PaymentMethod;
+import taweryawer.mappers.OrderMapper;
 import taweryawer.repository.FoodRepository;
 import taweryawer.repository.OrderPieceRepository;
 import taweryawer.repository.OrderRepository;
@@ -31,6 +33,12 @@ public class OrderServiceImpl implements OrderService {
 
     @Autowired
     private FoodRepository foodRepository;
+
+    @Autowired
+    private SimpMessagingTemplate simpMessagingTemplate;
+
+    @Autowired
+    private OrderMapper orderMapper;
 
     private Log log = LogFactory.getLog(OrderServiceImpl.class);
 
@@ -84,6 +92,9 @@ public class OrderServiceImpl implements OrderService {
         order.setPaymentMethod(paymentMethod);
         order.setOrderStatus(newOrderStatus);
         order.setDateTime(LocalDateTime.now());
+        if (newOrderStatus.equals(OrderStatus.WAITING)) {
+            convertToDtoAndSendSTOMP(order);
+        }
     }
 
     //TODO different price categories support
@@ -122,6 +133,7 @@ public class OrderServiceImpl implements OrderService {
         Order order = orderRepository.getOrderById(orderId);
         order.setOrderStatus(OrderStatus.CONFIRMED_LIQPAY_PAYMENT);
         order.setDateTime(LocalDateTime.now());
+        convertToDtoAndSendSTOMP(order);
     }
 
     @Override
@@ -137,5 +149,9 @@ public class OrderServiceImpl implements OrderService {
         return order;
     }
 
+
+    private void convertToDtoAndSendSTOMP(Order order) {
+        simpMessagingTemplate.convertAndSend("/orderspage/orders", orderMapper.toDto(order));
+    }
 
 }

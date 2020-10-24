@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.AnswerCallbackQuery;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
+import org.telegram.telegrambots.meta.api.methods.updatingmessages.DeleteMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import taweryawer.entities.enums.OrderStatus;
 import taweryawer.entities.enums.PaymentMethod;
@@ -34,6 +35,8 @@ public class CashPaymentAction implements Action<UserState, UserEvent> {
             String telegramId = update.getCallbackQuery().getFrom().getId().toString();
 
             orderService.confirmOrder(telegramId, PaymentMethod.CASH, OrderStatus.WAITING);
+
+            bot.execute(new DeleteMessage(telegramId, update.getCallbackQuery().getMessage().getMessageId()));
 
             bot.execute(new AnswerCallbackQuery()
                     .setCallbackQueryId(update.getCallbackQuery().getId()));

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.AnswerCallbackQuery;
 import org.telegram.telegrambots.meta.api.methods.send.SendInvoice;
+import org.telegram.telegrambots.meta.api.methods.updatingmessages.DeleteMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.api.objects.payments.LabeledPrice;
 import taweryawer.entities.Order;
@@ -57,6 +58,7 @@ public class LiqpayPaymentAction implements Action<UserState, UserEvent> {
             bot.execute(new AnswerCallbackQuery().setCallbackQueryId(update.getCallbackQuery().getId()));
             bot.execute(invoice);
             orderService.confirmOrder(telegramId, PaymentMethod.LIQPAY, OrderStatus.AWAITING_LIQPAY_PAYMENT);
+            bot.execute(new DeleteMessage(telegramId, update.getCallbackQuery().getMessage().getMessageId()));
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
