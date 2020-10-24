@@ -70,5 +70,10 @@ public class FoodServiceImpl implements FoodService {
         return foodRepository.getAllFood();
     }
 
+    @Override
+    public Food getFoodById(Long id) {
+        return foodRepository.getFoodById(id);
+    }
+
 
 }

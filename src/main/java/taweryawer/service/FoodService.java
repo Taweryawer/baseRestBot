@@ -13,4 +13,6 @@ public interface FoodService {
     public String getContentDescriptionForFood(Food food);
 
     public List<Food> getAllFood();
+
+    public Food getFoodById(Long id);
 }

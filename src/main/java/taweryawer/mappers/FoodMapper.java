@@ -13,7 +13,8 @@ public class FoodMapper {
     private ModelMapper modelMapper;
 
     public FoodDTO toDto(Food food) {
-        return modelMapper.map(food, FoodDTO.class);
+        FoodDTO dto = modelMapper.map(food, FoodDTO.class);
+        return dto;
     }
 
     public Food toEntity(FoodDTO dto) {

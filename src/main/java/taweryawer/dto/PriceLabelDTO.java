@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class PriceLabelDTO {
 
-    private PriceCategoryDTO priceCategoryDTO;
+    private PriceCategoryDTO priceCategory;
 
     private Double value;
 }

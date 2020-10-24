@@ -1,0 +1,30 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Заказы</title>
+    <th:block th:insert="common.html :: head"/>
+</head>
+<body>
+<div th:insert="common.html :: bootstrapjs"/>
+<div th:insert="common.html :: navbar"/>
+
+<h1 th:text="${'Позиция меню №' + item.getId()}"/>
+<h3>Информация о позиции</h3>
+<dl>
+    <dt>Название</dt>
+    <dd th:text="${item.getTitle()}"></dd>
+    <dt>Описание</dt>
+    <dd th:text="${item.getDescription()}"></dd>
+    <dt>Кол-во товара</dt>
+    <dd th:text="${item.getWeight()}"></dd>
+</dl>
+<h3>Информация о ценах</h3>
+<dl>
+    <th:block th:each="priceLabel : ${item.getPriceLabels()}">
+        <dt th:text="${priceLabel.getPriceCategory().getTitle()}"></dt>
+        <dd th:text="${priceLabel.getValue()}"></dd>
+    </th:block>
+</dl>
+<h3>Фото</h3>
+<img height="500" th:src="${item.getPhotoURL()}" width="500">
+</body>
