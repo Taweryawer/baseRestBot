@@ -1,4 +1,4 @@
-package taweryawer.dto;
+package taweryawer.forms;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -7,9 +7,7 @@ import java.util.List;
 
 @Data
 @NoArgsConstructor
-public class FoodDTO {
-
-    private Long id;
+public class FoodForm {
 
     private String title;
 
@@ -19,7 +17,7 @@ public class FoodDTO {
 
     private String photoURL;
 
-    private CategoryDTO category;
+    private String category;
 
-    private List<PriceLabelDTO> priceLabels;
+    private List<String> priceLabels;
 }

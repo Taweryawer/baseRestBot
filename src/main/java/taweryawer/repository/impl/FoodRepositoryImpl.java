@@ -46,4 +46,9 @@ public class FoodRepositoryImpl implements FoodRepository {
         TypedQuery<Food> query = entityManager.createQuery(cq);
         return query.getResultList();
     }
+
+    @Override
+    public void save(Food food) {
+        entityManager.persist(food);
+    }
 }

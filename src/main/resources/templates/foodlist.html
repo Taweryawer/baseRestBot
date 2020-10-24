@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Заказы</title>
+    <title>Товары</title>
     <th:block th:insert="common.html :: head"/>
 </head>
 <body>
@@ -14,6 +14,7 @@
     <tr>
         <th scope="col">Айди</th>
         <th scope="col">Название</th>
+        <th scope="col">Категория</th>
         <th scope="col">Описание</th>
     </tr>
     </thead>
@@ -21,6 +22,7 @@
     <tr th:data-href="${'/f/' + food.getId()}">
         <th scope="row" th:text="${food.getId()}"/>
         <td th:text="${food.getTitle()}"/>
+        <td th:text="${food.getCategory().getName()}"/>
         <td th:text="${food.getDescription()}"/>
     </tr>
     </tbody>

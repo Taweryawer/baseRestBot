@@ -1,6 +1,7 @@
 package taweryawer.service;
 
 import taweryawer.entities.Food;
+import taweryawer.entities.PriceCategory;
 
 import java.util.List;
 
@@ -15,4 +16,10 @@ public interface FoodService {
     public List<Food> getAllFood();
 
     public Food getFoodById(Long id);
+
+    List<PriceCategory> getAllPriceCategories();
+
+    PriceCategory getPriceCategoryByTitle(String title);
+
+    void saveFood(Food food);
 }

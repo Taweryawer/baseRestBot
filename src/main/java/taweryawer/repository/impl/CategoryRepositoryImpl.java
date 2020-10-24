@@ -29,4 +29,14 @@ public class CategoryRepositoryImpl implements CategoryRepository {
         TypedQuery<Category> query = entityManager.createQuery(cq);
         return query.getResultList();
     }
+
+    @Override
+    public Category getCategoryByName(String name) {
+        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Category> cq = cb.createQuery(Category.class);
+        Root<Category> root = cq.from(Category.class);
+        cq.select(root).where(cb.equal(root.get("name"), name));
+        TypedQuery<Category> query = entityManager.createQuery(cq);
+        return query.getSingleResult();
+    }
 }

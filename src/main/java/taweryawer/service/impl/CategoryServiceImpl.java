@@ -38,4 +38,9 @@ public class CategoryServiceImpl implements CategoryService {
         builder.finishRow();
         return builder.build();
     }
+
+    @Override
+    public Category getCategoryByName(String name) {
+        return categoryRepository.getCategoryByName(name);
+    }
 }

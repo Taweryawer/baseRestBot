@@ -9,4 +9,6 @@ public interface CategoryService {
 
     public List<Category> getAllCategories();
     public InlineKeyboardMarkup getCategoriesKeyboard();
+
+    Category getCategoryByName(String name);
 }

@@ -1,0 +1,79 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Добавление товара</title>
+    <th:block th:insert="common.html :: head"/>
+    <script src="/js/prefix.js"></script>
+</head>
+<body>
+<div th:insert="common.html :: bootstrapjs"/>
+<div th:insert="common.html :: navbar"/>
+<div class="container">
+    <div class="row my-4">
+        <div class="col">
+        </div>
+        <div class="col-8">
+            <form action="/additem" id="mainform" method="post">
+                <div class="form-group row">
+                    <label for="title">Название</label><br>
+                    <div class="col-sm-10">
+                        <input class="form-control" id="title" name="title" type="text">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="weight">Кол-во</label><br>
+                    <div class="col-sm-10">
+                        <input class="form-control" id="weight" name="weight" type="text">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="description">Описание</label><br>
+                    <div class="col-sm-10">
+                        <textarea class="form-control" id="description" name="description"></textarea>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="photoURL">Ссылка на фото</label><br>
+                    <div class="col-sm-10">
+                        <input class="form-control" id="photoURL" name="photoURL" type="text">
+                    </div>
+                </div>
+                <fieldset class="form-group">
+                    <div class="row">
+                        <legend class="col-form-label col-sm-0 pt-0">Выберите категорию</legend>
+                        <div class="col-sm-2">
+                            <div class="form-check" th:each="category : ${itemcategories}">
+                                <input class="form-check-input" name="category" th:id="${category.getId()}"
+                                       th:value="${category.getName()}" type="radio">
+                                <label class="form-check-label" th:for="${category.getId()}">
+                                    <th:block th:text="${category.getName()}"/>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+                <div class="form-group row">
+                    <b><span>Цены</span></b>
+                    <th:block th:each="pricecategory : ${pricecategories}">
+                        <input class="form-control" name="priceLabels" th:id="${'price' + pricecategory.getId()}"
+                               th:value="${pricecategory.getTitle() + ' '}" type="text">
+                        <script th:inline="javascript">
+                            var prefixx = [[${pricecategory.getTitle()}]] + " ";
+                            var id = [[${'price' + pricecategory.getId()}]];
+                            prefix(id, prefixx);
+                        </script>
+                    </th:block>
+                </div>
+                <input th:name="${_csrf.parameterName}" th:value="${_csrf.token}" type="hidden"/>
+                <div class="form-group row">
+                    <div class="col-sm-10">
+                        <button class="btn btn-primary" type="submit">Подтвердить</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="col">
+        </div>
+    </div>
+</div>
+</body>

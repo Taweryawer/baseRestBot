@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Заказы</title>
+    <title th:text="${'Заказ №' + order.getId()}"></title>
     <th:block th:insert="common.html :: head"/>
 </head>
 <body>

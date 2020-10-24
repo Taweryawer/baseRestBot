@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Заказы</title>
+    <title th:text="${'Товар №' + item.getId()}"></title>
     <th:block th:insert="common.html :: head"/>
 </head>
 <body>
@@ -17,6 +17,8 @@
     <dd th:text="${item.getDescription()}"></dd>
     <dt>Кол-во товара</dt>
     <dd th:text="${item.getWeight()}"></dd>
+    <dt>Категория</dt>
+    <dd th:text="${item.getCategory().getName()}"></dd>
 </dl>
 <h3>Информация о ценах</h3>
 <dl>

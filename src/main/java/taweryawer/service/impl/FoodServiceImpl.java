@@ -3,17 +3,24 @@ package taweryawer.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import taweryawer.entities.Food;
+import taweryawer.entities.PriceCategory;
 import taweryawer.entities.PriceLabel;
 import taweryawer.repository.FoodRepository;
+import taweryawer.repository.PriceCategoryRepository;
 import taweryawer.service.FoodService;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
+@Transactional
 public class FoodServiceImpl implements FoodService {
 
     @Autowired
     private FoodRepository foodRepository;
+
+    @Autowired
+    private PriceCategoryRepository priceCategoryRepository;
 
     @Override
     public List<Food> getAllFoodByCategory(String category) {
@@ -73,6 +80,21 @@ public class FoodServiceImpl implements FoodService {
     @Override
     public Food getFoodById(Long id) {
         return foodRepository.getFoodById(id);
+    }
+
+    @Override
+    public List<PriceCategory> getAllPriceCategories() {
+        return priceCategoryRepository.getAllPriceCategories();
+    }
+
+    @Override
+    public PriceCategory getPriceCategoryByTitle(String title) {
+        return priceCategoryRepository.getPriceCategoryByTitle(title);
+    }
+
+    @Override
+    public void saveFood(Food food) {
+        foodRepository.save(food);
     }
 
 
