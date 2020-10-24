@@ -25,7 +25,7 @@ public class Food {
     private String description;
     private String photoURL;
 
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     @JoinTable(name = "food_price_label",
             joinColumns = @JoinColumn(name = "food_id", referencedColumnName = "id", nullable = false),
             inverseJoinColumns = @JoinColumn(name = "price_label_id", referencedColumnName = "id", nullable = false))

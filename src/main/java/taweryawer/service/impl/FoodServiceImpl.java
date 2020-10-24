@@ -65,5 +65,10 @@ public class FoodServiceImpl implements FoodService {
         return sb.toString();
     }
 
+    @Override
+    public List<Food> getAllFood() {
+        return foodRepository.getAllFood();
+    }
+
 
 }

@@ -8,4 +8,6 @@ public interface FoodRepository {
 
     public List<Food> getFoodByCategory(String category);
     public Food getFoodById(Long foodId);
+
+    public List<Food> getAllFood();
 }

@@ -11,4 +11,6 @@ public interface FoodService {
     public String getDescriptionForFood(Food food);
 
     public String getContentDescriptionForFood(Food food);
+
+    public List<Food> getAllFood();
 }

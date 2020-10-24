@@ -36,4 +36,14 @@ public class FoodRepositoryImpl implements FoodRepository {
     public Food getFoodById(Long foodId) {
         return entityManager.find(Food.class, foodId);
     }
+
+    @Override
+    public List<Food> getAllFood() {
+        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Food> cq = cb.createQuery(Food.class);
+        Root<Food> root = cq.from(Food.class);
+        cq.select(root);
+        TypedQuery<Food> query = entityManager.createQuery(cq);
+        return query.getResultList();
+    }
 }
