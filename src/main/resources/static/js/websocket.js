@@ -28,7 +28,9 @@ function connect() {
             tbody.appendChild(tr);
             table.insertBefore(tbody, table.firstChild);
             console.log(tbody);
-            table.removeChild(table.lastElementChild);
+            if (table.children.length > 20) {
+                table.removeChild(table.lastElementChild);
+            }
             var audio = new Audio('../sounds/newOrder.ogg');
             audio.play();
             rowlink();

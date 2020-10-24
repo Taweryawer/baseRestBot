@@ -138,7 +138,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public List<Order> getOrdersForPage(Integer page) {
-        Integer lowerBound = (page - 1) * 20 + 1;
+        Integer lowerBound = (page - 1) * 20;
         Integer higherBound = lowerBound + 20;
         return orderRepository.getOrdersOrderedByWaitingWithLimit(lowerBound, higherBound);
     }

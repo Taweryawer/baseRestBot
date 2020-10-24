@@ -25,9 +25,9 @@
     <tbody th:each="order : ${orders}">
     <tr th:data-href="${'/o/' + order.getId()}">
         <th scope="row" th:text="${order.getId()}"/>
-        <td th:text="${order.getUser()?.getName()}"/>
-        <td th:text="${order.getOrderStatus().toString()}"/>
-        <td th:text="${order.getPaymentMethod()?.toString()}"/>
+        <td th:text="${order.getOrdererName()}"/>
+        <td th:text="${order.getOrderStatus()}"/>
+        <td th:text="${order.getPaymentMethod()}"/>
         <td th:text="${order.getDateTime()}"/>
     </tr>
     </tbody>
@@ -39,8 +39,10 @@
                 <li class="page-item active" th:case="${currentPage}"><a class="page-link"
                                                                          th:href="${'/orders?page=' + i}"
                                                                          th:text="${i}"></a></li>
+                <div th:case="${0}"/>
                 <li class="page-item" th:case="*"><a class="page-link" th:href="${'/orders?page=' + i}"
                                                      th:text="${i}"></a></li>
+
             </div>
         </th:block>
     </ul>
