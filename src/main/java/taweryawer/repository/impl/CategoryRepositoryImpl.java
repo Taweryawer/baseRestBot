@@ -39,4 +39,9 @@ public class CategoryRepositoryImpl implements CategoryRepository {
         TypedQuery<Category> query = entityManager.createQuery(cq);
         return query.getSingleResult();
     }
+
+    @Override
+    public void save(Category category) {
+        entityManager.persist(category);
+    }
 }

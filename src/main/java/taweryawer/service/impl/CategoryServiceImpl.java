@@ -8,9 +8,11 @@ import taweryawer.repository.CategoryRepository;
 import taweryawer.service.CategoryService;
 import taweryawer.service.InlineKeyboardBuilder;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
+@Transactional
 public class CategoryServiceImpl implements CategoryService {
 
     @Autowired
@@ -42,5 +44,10 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public Category getCategoryByName(String name) {
         return categoryRepository.getCategoryByName(name);
+    }
+
+    @Override
+    public void save(Category category) {
+        categoryRepository.save(category);
     }
 }

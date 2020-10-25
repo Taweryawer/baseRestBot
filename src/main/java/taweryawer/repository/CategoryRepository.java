@@ -9,4 +9,6 @@ public interface CategoryRepository {
     public List<Category> getAllCategories();
 
     Category getCategoryByName(String name);
+
+    void save(Category category);
 }

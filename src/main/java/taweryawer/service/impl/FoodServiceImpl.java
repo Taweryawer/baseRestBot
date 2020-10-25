@@ -102,5 +102,15 @@ public class FoodServiceImpl implements FoodService {
         foodRepository.update(food);
     }
 
+    @Override
+    public void savePriceCategory(PriceCategory priceCategory) {
+        priceCategoryRepository.save(priceCategory);
+    }
+
+    @Override
+    public void savePriceLabel(PriceLabel priceLabel) {
+        priceCategoryRepository.savePriceLabel(priceLabel);
+    }
+
 
 }

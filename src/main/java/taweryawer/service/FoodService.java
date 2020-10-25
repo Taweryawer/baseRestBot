@@ -2,6 +2,7 @@ package taweryawer.service;
 
 import taweryawer.entities.Food;
 import taweryawer.entities.PriceCategory;
+import taweryawer.entities.PriceLabel;
 
 import java.util.List;
 
@@ -24,4 +25,8 @@ public interface FoodService {
     void saveFood(Food food);
 
     void updateFood(Food food);
+
+    void savePriceCategory(PriceCategory priceCategory);
+
+    void savePriceLabel(PriceLabel priceLabel);
 }

@@ -9,7 +9,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import taweryawer.dto.FoodDTO;
+import taweryawer.entities.Category;
 import taweryawer.entities.Food;
+import taweryawer.entities.PriceCategory;
 import taweryawer.entities.PriceLabel;
 import taweryawer.forms.FoodForm;
 import taweryawer.mappers.FoodMapper;
@@ -107,13 +109,23 @@ public class MenuCMSController {
         food.setWeight(foodForm.getWeight());
         food.setPhotoURL(foodForm.getPhotoURL());
         food.setCategory(categoryService.getCategoryByName(foodForm.getCategory()));
-        food.getPriceLabels().forEach(x -> {
-            for (String label : foodForm.getPriceLabels()) {
-                String name = label.split(" ")[0];
-                Double value = Double.valueOf(label.split(" ")[1]);
-                if (x.getPriceCategory().getTitle().equals(name)) {
-                    x.setValue(value);
+        foodForm.getPriceLabels().forEach(x -> {
+            boolean found = false;
+            String name = x.split(" ")[0];
+            Double value = Double.valueOf(x.split(" ")[1]);
+            for (PriceLabel priceLabel : food.getPriceLabels()) {
+                if (priceLabel.getPriceCategory().getTitle().equals(name)) {
+                    priceLabel.setValue(value);
+                    found = true;
                 }
+            }
+            if (!found) {
+                PriceLabel priceLabel = new PriceLabel();
+                PriceCategory priceCategory = foodService.getPriceCategoryByTitle(name);
+                priceLabel.setPriceCategory(priceCategory);
+                priceLabel.setValue(value);
+                foodService.savePriceLabel(priceLabel);
+                food.getPriceLabels().add(priceLabel);
             }
         });
         foodService.updateFood(food);
@@ -121,4 +133,26 @@ public class MenuCMSController {
         return "redirect:/f/" + foodId;
     }
 
+    @GetMapping("/categorieslist")
+    public String categoriesList(Model model) {
+        model.addAttribute("itemcategories", categoryService.getAllCategories());
+        model.addAttribute("pricecategories", foodService.getAllPriceCategories());
+        return "categorieslist";
+    }
+
+    @PostMapping("/addcategory")
+    public String addCategory(String name) {
+        Category category = new Category();
+        category.setName(name);
+        categoryService.save(category);
+        return "redirect:/categorieslist";
+    }
+
+    @PostMapping("/addpricecategory")
+    public String addPriceCategory(String title) {
+        PriceCategory category = new PriceCategory();
+        category.setTitle(title);
+        foodService.savePriceCategory(category);
+        return "redirect:/categorieslist";
+    }
 }

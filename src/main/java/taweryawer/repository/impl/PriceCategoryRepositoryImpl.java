@@ -2,6 +2,7 @@ package taweryawer.repository.impl;
 
 import org.springframework.stereotype.Repository;
 import taweryawer.entities.PriceCategory;
+import taweryawer.entities.PriceLabel;
 import taweryawer.repository.PriceCategoryRepository;
 
 import javax.persistence.EntityManager;
@@ -33,5 +34,15 @@ public class PriceCategoryRepositoryImpl implements PriceCategoryRepository {
         Root<PriceCategory> root = cq.from(PriceCategory.class);
         cq.select(root).where(cb.equal(root.get("title"), title));
         return entityManager.createQuery(cq).getSingleResult();
+    }
+
+    @Override
+    public void save(PriceCategory priceCategory) {
+        entityManager.persist(priceCategory);
+    }
+
+    @Override
+    public void savePriceLabel(PriceLabel priceLabel) {
+        entityManager.persist(priceLabel);
     }
 }
