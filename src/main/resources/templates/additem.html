@@ -13,37 +13,46 @@
         <div class="col">
         </div>
         <div class="col-8">
-            <form action="/additem" id="mainform" method="post">
+            <form id="mainform" method="post" th:action="@{/additem}" th:object="${foodForm}">
                 <div class="form-group row">
                     <label for="title">Название</label><br>
                     <div class="col-sm-10">
-                        <input class="form-control" id="title" name="title" type="text">
+                        <input class="form-control" id="title" name="title" th:field="*{title}"
+                               th:value="${foodForm?.getTitle()}" type="text">
                     </div>
+                    <label for="title" th:errors="*{title}" th:if="${#fields.hasErrors('title')}"/>
                 </div>
                 <div class="form-group row">
                     <label for="weight">Кол-во</label><br>
                     <div class="col-sm-10">
-                        <input class="form-control" id="weight" name="weight" type="text">
+                        <input class="form-control" id="weight" name="weight" th:field="*{weight}"
+                               th:value="${foodForm?.getWeight()}" type="text">
                     </div>
                 </div>
                 <div class="form-group row">
                     <label for="description">Описание</label><br>
                     <div class="col-sm-10">
-                        <textarea class="form-control" id="description" name="description"></textarea>
+                        <textarea class="form-control" id="description" name="description" th:field="*{description}"
+                                  th:text="${foodForm?.getDescription()}"></textarea>
                     </div>
+                    <label for="description" th:errors="*{description}" th:if="${#fields.hasErrors('description')}"/>
                 </div>
                 <div class="form-group row">
                     <label for="photoURL">Ссылка на фото</label><br>
                     <div class="col-sm-10">
-                        <input class="form-control" id="photoURL" name="photoURL" type="text">
+                        <input class="form-control" id="photoURL" name="photoURL" th:field="*{photoURL}"
+                               th:value="${foodForm?.getPhotoURL()}" type="text">
                     </div>
+                    <label for="photoURL" th:errors="*{photoURL}" th:if="${#fields.hasErrors('photoURL')}"/>
                 </div>
                 <fieldset class="form-group">
                     <div class="row">
                         <legend class="col-form-label col-sm-0 pt-0">Выберите категорию</legend>
+                        <b><span th:errors="*{category}" th:if="${#fields.hasErrors('category')}"></span></b>
                         <div class="col-sm-2">
                             <div class="form-check" th:each="category : ${itemcategories}">
-                                <input class="form-check-input" name="category" th:id="${category.getId()}"
+                                <input class="form-check-input" name="category" th:field="*{category}"
+                                       th:id="${category.getId()}"
                                        th:value="${category.getName()}" type="radio">
                                 <label class="form-check-label" th:for="${category.getId()}">
                                     <th:block th:text="${category.getName()}"/>
@@ -54,6 +63,7 @@
                 </fieldset>
                 <div class="form-group row">
                     <b><span>Цены</span></b>
+                    <b><span th:errors="*{priceLabels}" th:if="${#fields.hasErrors('priceLabels')}"></span></b>
                     <th:block th:each="pricecategory : ${pricecategories}">
                         <input class="form-control" name="priceLabels" th:id="${'price' + pricecategory.getId()}"
                                th:value="${pricecategory.getTitle() + ' '}" type="text">

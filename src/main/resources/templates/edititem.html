@@ -13,7 +13,7 @@
         <div class="col">
         </div>
         <div class="col-8">
-            <form id="mainform" method="post" th:action="${'/editItem?id=' + item.getId()}">
+            <form id="mainform" method="post" th:action="${'/editItem?id=' + item.getId()}" th:object="${foodForm}">
                 <fieldset disabled>
                     <div class="form-group row">
                         <label for="idinput">Айди</label>
@@ -25,6 +25,7 @@
                     <div class="col-sm-10">
                         <input class="form-control" id="title" name="title" th:value="${item.getTitle()}" type="text">
                     </div>
+                    <label for="title" th:errors="*{title}" th:if="${#fields.hasErrors('title')}"/>
                 </div>
                 <div class="form-group row">
                     <label for="weight">Кол-во</label><br>
@@ -39,6 +40,7 @@
                         <textarea class="form-control" id="description" name="description"
                                   th:text="${item.getDescription()}"></textarea>
                     </div>
+                    <label for="description" th:errors="*{description}" th:if="${#fields.hasErrors('description')}"/>
                 </div>
                 <div class="form-group row">
                     <label for="photoURL">Ссылка на фото</label><br>
@@ -46,6 +48,7 @@
                         <input class="form-control" id="photoURL" name="photoURL" th:value="${item.getPhotoURL()}"
                                type="text">
                     </div>
+                    <label for="photoURL" th:errors="*{photoURL}" th:if="${#fields.hasErrors('photoURL')}"/>
                 </div>
                 <fieldset class="form-group">
                     <div class="row">

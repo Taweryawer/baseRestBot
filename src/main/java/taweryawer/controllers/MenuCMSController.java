@@ -3,6 +3,7 @@ package taweryawer.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,11 +16,13 @@ import taweryawer.mappers.FoodMapper;
 import taweryawer.service.CategoryService;
 import taweryawer.service.FoodService;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 
 @Controller
 public class MenuCMSController {
+
 
     @Autowired
     private FoodService foodService;
@@ -50,11 +53,17 @@ public class MenuCMSController {
     public String addItemPage(Model model) {
         model.addAttribute("itemcategories", categoryService.getAllCategories());
         model.addAttribute("pricecategories", foodService.getAllPriceCategories());
+        model.addAttribute("foodForm", new FoodForm());
         return "additem";
     }
 
     @PostMapping("/additem")
-    public String addItem(FoodForm foodForm, Model model) {
+    public String addItem(@Valid FoodForm foodForm, BindingResult result, Model model) {
+        if (result.hasErrors()) {
+            model.addAttribute("itemcategories", categoryService.getAllCategories());
+            model.addAttribute("pricecategories", foodService.getAllPriceCategories());
+            return "additem";
+        }
         Food food = new Food();
         food.setTitle(foodForm.getTitle());
         food.setDescription(foodForm.getDescription());
@@ -81,11 +90,17 @@ public class MenuCMSController {
         model.addAttribute("itemcategories", categoryService.getAllCategories());
         model.addAttribute("pricecategories", foodService.getAllPriceCategories());
         model.addAttribute("item", foodMapper.toDto(foodService.getFoodById(id)));
+        model.addAttribute("foodForm", new FoodForm());
         return "edititem";
     }
 
     @PostMapping("/editItem")
-    public String editItem(FoodForm foodForm, @RequestParam(name = "id") Long foodId, Model model) {
+    public String editItem(@Valid FoodForm foodForm, BindingResult result, @RequestParam(name = "id") Long foodId, Model model) {
+        if (result.hasErrors()) {
+            model.addAttribute("itemcategories", categoryService.getAllCategories());
+            model.addAttribute("pricecategories", foodService.getAllPriceCategories());
+            return "additem";
+        }
         Food food = foodService.getFoodById(foodId);
         food.setTitle(foodForm.getTitle());
         food.setDescription(foodForm.getDescription());
