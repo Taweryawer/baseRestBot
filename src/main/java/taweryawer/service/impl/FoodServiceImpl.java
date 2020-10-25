@@ -97,5 +97,10 @@ public class FoodServiceImpl implements FoodService {
         foodRepository.save(food);
     }
 
+    @Override
+    public void updateFood(Food food) {
+        foodRepository.update(food);
+    }
+
 
 }

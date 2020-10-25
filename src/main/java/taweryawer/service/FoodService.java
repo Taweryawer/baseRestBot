@@ -22,4 +22,6 @@ public interface FoodService {
     PriceCategory getPriceCategoryByTitle(String title);
 
     void saveFood(Food food);
+
+    void updateFood(Food food);
 }

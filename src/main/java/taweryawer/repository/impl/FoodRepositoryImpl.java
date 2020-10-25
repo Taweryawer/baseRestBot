@@ -51,4 +51,9 @@ public class FoodRepositoryImpl implements FoodRepository {
     public void save(Food food) {
         entityManager.persist(food);
     }
+
+    @Override
+    public void update(Food food) {
+        entityManager.merge(food);
+    }
 }

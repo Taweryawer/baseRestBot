@@ -11,4 +11,6 @@ public interface FoodRepository {
     public List<Food> getAllFood();
 
     public void save(Food food);
+
+    void update(Food food);
 }

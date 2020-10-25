@@ -9,6 +9,7 @@
 <div th:insert="common.html :: navbar"/>
 
 <h1 th:text="${'Позиция меню №' + item.getId()}"/>
+<b><a th:href="${'/edititem?id=' + item.getId()}">Отредактировать</a></b>
 <h3>Информация о позиции</h3>
 <dl>
     <dt>Название</dt>

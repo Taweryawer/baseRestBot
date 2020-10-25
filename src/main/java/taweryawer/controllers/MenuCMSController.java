@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import taweryawer.dto.FoodDTO;
 import taweryawer.entities.Food;
 import taweryawer.entities.PriceLabel;
@@ -74,4 +75,35 @@ public class MenuCMSController {
         model.addAttribute("pricecategories", foodService.getAllPriceCategories());
         return "additem";
     }
+
+    @GetMapping("/edititem")
+    public String editItemPage(@RequestParam(name = "id") Long id, Model model) {
+        model.addAttribute("itemcategories", categoryService.getAllCategories());
+        model.addAttribute("pricecategories", foodService.getAllPriceCategories());
+        model.addAttribute("item", foodMapper.toDto(foodService.getFoodById(id)));
+        return "edititem";
+    }
+
+    @PostMapping("/editItem")
+    public String editItem(FoodForm foodForm, @RequestParam(name = "id") Long foodId, Model model) {
+        Food food = foodService.getFoodById(foodId);
+        food.setTitle(foodForm.getTitle());
+        food.setDescription(foodForm.getDescription());
+        food.setWeight(foodForm.getWeight());
+        food.setPhotoURL(foodForm.getPhotoURL());
+        food.setCategory(categoryService.getCategoryByName(foodForm.getCategory()));
+        food.getPriceLabels().forEach(x -> {
+            for (String label : foodForm.getPriceLabels()) {
+                String name = label.split(" ")[0];
+                Double value = Double.valueOf(label.split(" ")[1]);
+                if (x.getPriceCategory().getTitle().equals(name)) {
+                    x.setValue(value);
+                }
+            }
+        });
+        foodService.updateFood(food);
+
+        return "redirect:/f/" + foodId;
+    }
+
 }
