@@ -56,4 +56,9 @@ public class FoodRepositoryImpl implements FoodRepository {
     public void update(Food food) {
         entityManager.merge(food);
     }
+
+    @Override
+    public void remove(Food food) {
+        entityManager.remove(food);
+    }
 }

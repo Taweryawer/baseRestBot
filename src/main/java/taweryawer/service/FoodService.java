@@ -29,4 +29,6 @@ public interface FoodService {
     void savePriceCategory(PriceCategory priceCategory);
 
     void savePriceLabel(PriceLabel priceLabel);
+
+    void removeFoodById(Long itemId);
 }

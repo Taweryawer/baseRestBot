@@ -112,5 +112,11 @@ public class FoodServiceImpl implements FoodService {
         priceCategoryRepository.savePriceLabel(priceLabel);
     }
 
+    @Override
+    public void removeFoodById(Long itemId) {
+        Food food = foodRepository.getFoodById(itemId);
+        foodRepository.remove(food);
+    }
+
 
 }

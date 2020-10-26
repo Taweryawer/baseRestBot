@@ -10,6 +10,7 @@
 
 <h1 th:text="${'Позиция меню №' + item.getId()}"/>
 <b><a th:href="${'/edititem?id=' + item.getId()}">Отредактировать</a></b>
+<b><a th:href="${'/removeitem?id=' + item.getId()}">Удалить</a></b>
 <h3>Информация о позиции</h3>
 <dl>
     <dt>Название</dt>

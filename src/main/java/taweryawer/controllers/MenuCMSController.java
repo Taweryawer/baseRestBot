@@ -82,9 +82,7 @@ public class MenuCMSController {
         food.setPriceLabels(priceLabels);
         foodService.saveFood(food);
 
-        model.addAttribute("itemcategories", categoryService.getAllCategories());
-        model.addAttribute("pricecategories", foodService.getAllPriceCategories());
-        return "additem";
+        return "redirect:/additem";
     }
 
     @GetMapping("/edititem")
@@ -154,5 +152,11 @@ public class MenuCMSController {
         category.setTitle(title);
         foodService.savePriceCategory(category);
         return "redirect:/categorieslist";
+    }
+
+    @GetMapping("/removeitem")
+    public String removeItem(@RequestParam(name = "id") Long id) {
+        foodService.removeFoodById(id);
+        return "redirect:/foodlist";
     }
 }

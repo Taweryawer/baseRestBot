@@ -7,10 +7,14 @@ import java.util.List;
 public interface FoodRepository {
 
     public List<Food> getFoodByCategory(String category);
+
     public Food getFoodById(Long foodId);
+
     public List<Food> getAllFood();
 
     public void save(Food food);
 
     void update(Food food);
+
+    void remove(Food food);
 }
