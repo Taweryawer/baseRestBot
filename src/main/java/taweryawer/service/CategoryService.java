@@ -14,4 +14,6 @@ public interface CategoryService {
     Category getCategoryByName(String name);
 
     void save(Category category);
+
+    void remove(Long categoryId);
 }

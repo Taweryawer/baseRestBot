@@ -118,5 +118,15 @@ public class FoodServiceImpl implements FoodService {
         foodRepository.remove(food);
     }
 
+    @Override
+    public void removePriceCategoryById(Long priceCategoryId) {
+        PriceCategory priceCategory = priceCategoryRepository.getPriceCategoryById(priceCategoryId);
+        List<Food> foodList = foodRepository.getAllFood();
+        foodList.forEach(food -> {
+            food.getPriceLabels().removeIf(pl -> pl.getPriceCategory().equals(priceCategory));
+        });
+        priceCategoryRepository.remove(priceCategory);
+    }
+
 
 }

@@ -78,6 +78,7 @@ public class MenuCMSController {
             priceLabel.setPriceCategory(foodService.getPriceCategoryByTitle(data.split(" ")[0]));
             priceLabel.setValue(Double.valueOf(data.split(" ")[1]));
             priceLabels.add(priceLabel);
+            priceLabel.setFood(food);
         }
         food.setPriceLabels(priceLabels);
         foodService.saveFood(food);
@@ -122,6 +123,7 @@ public class MenuCMSController {
                 PriceCategory priceCategory = foodService.getPriceCategoryByTitle(name);
                 priceLabel.setPriceCategory(priceCategory);
                 priceLabel.setValue(value);
+                priceLabel.setFood(food);
                 foodService.savePriceLabel(priceLabel);
                 food.getPriceLabels().add(priceLabel);
             }
@@ -158,5 +160,17 @@ public class MenuCMSController {
     public String removeItem(@RequestParam(name = "id") Long id) {
         foodService.removeFoodById(id);
         return "redirect:/foodlist";
+    }
+
+    @GetMapping("/removecategory")
+    public String removeCategory(@RequestParam(name = "id") Long id) {
+        categoryService.remove(id);
+        return "redirect:/categorieslist";
+    }
+
+    @GetMapping("/removepricecategory")
+    public String removePriceCategory(@RequestParam(name = "id") Long id) {
+        foodService.removePriceCategoryById(id);
+        return "redirect:/categorieslist";
     }
 }

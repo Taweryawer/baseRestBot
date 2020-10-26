@@ -44,4 +44,14 @@ public class CategoryRepositoryImpl implements CategoryRepository {
     public void save(Category category) {
         entityManager.persist(category);
     }
+
+    @Override
+    public void remove(Category category) {
+        entityManager.remove(category);
+    }
+
+    @Override
+    public Category getCategoryById(Long categoryId) {
+        return entityManager.find(Category.class, categoryId);
+    }
 }

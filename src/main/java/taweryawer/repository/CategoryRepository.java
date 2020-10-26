@@ -11,4 +11,8 @@ public interface CategoryRepository {
     Category getCategoryByName(String name);
 
     void save(Category category);
+
+    void remove(Category category);
+
+    Category getCategoryById(Long categoryId);
 }

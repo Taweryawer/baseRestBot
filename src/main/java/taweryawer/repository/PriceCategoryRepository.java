@@ -13,4 +13,8 @@ public interface PriceCategoryRepository {
     void save(PriceCategory priceCategory);
 
     void savePriceLabel(PriceLabel priceLabel);
+
+    void remove(PriceCategory priceCategory);
+
+    PriceCategory getPriceCategoryById(Long priceCategoryId);
 }

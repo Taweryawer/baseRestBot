@@ -45,4 +45,15 @@ public class PriceCategoryRepositoryImpl implements PriceCategoryRepository {
     public void savePriceLabel(PriceLabel priceLabel) {
         entityManager.persist(priceLabel);
     }
+
+    @Override
+    public void remove(PriceCategory priceCategory) {
+        entityManager.remove(priceCategory);
+    }
+
+    @Override
+    public PriceCategory getPriceCategoryById(Long priceCategoryId) {
+        return entityManager.find(PriceCategory.class, priceCategoryId);
+    }
+
 }

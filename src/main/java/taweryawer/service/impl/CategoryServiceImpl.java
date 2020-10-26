@@ -50,4 +50,10 @@ public class CategoryServiceImpl implements CategoryService {
     public void save(Category category) {
         categoryRepository.save(category);
     }
+
+    @Override
+    public void remove(Long categoryId) {
+        Category category = categoryRepository.getCategoryById(categoryId);
+        categoryRepository.remove(category);
+    }
 }

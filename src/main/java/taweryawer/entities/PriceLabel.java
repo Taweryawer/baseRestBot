@@ -20,4 +20,8 @@ public class PriceLabel {
     private PriceCategory priceCategory;
 
     private Double value;
+
+    @ManyToOne
+    @JoinColumn(name = "food_id", referencedColumnName = "id")
+    private Food food;
 }

@@ -4,6 +4,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Data
@@ -16,4 +18,7 @@ public class PriceCategory {
     private Long id;
 
     private String title;
+
+    @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "priceCategory")
+    private List<PriceLabel> priceLabels = new ArrayList<>();
 }

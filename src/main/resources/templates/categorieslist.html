@@ -38,15 +38,19 @@
                 <tr>
                     <th scope="col">Айди</th>
                     <th scope="col">Категории меню</th>
+                    <th scope="col"></th>
                 </tr>
                 </thead>
                 <tbody th:each="category : ${itemcategories}">
                 <tr>
                     <th scope="row" th:text="${category.getId()}"/>
                     <td th:text="${category.getName()}"/>
+                    <td><a th:href="${'/removecategory?id=' + category.getId()}">Удалить</a></td>
                 </tr>
                 </tbody>
             </table>
+            <b>Перед удалением категории измените/удалите весь товар принадлежащий к ней, иначе категория не
+                удалится</b>
         </div>
         <div class="col">
             <table class="table table-striped table-dark table-hover" id="pricecategoriestable">
@@ -54,12 +58,14 @@
                 <tr>
                     <th scope="col">Айди</th>
                     <th scope="col">Ценовые категории</th>
+                    <th scope="col"></th>
                 </tr>
                 </thead>
                 <tbody th:each="category : ${pricecategories}">
                 <tr>
                     <th scope="row" th:text="${category.getId()}"/>
                     <td th:text="${category.getTitle()}"/>
+                    <td><a th:href="${'/removepricecategory?id=' + category.getId()}">Удалить</a></td>
                 </tr>
                 </tbody>
             </table>

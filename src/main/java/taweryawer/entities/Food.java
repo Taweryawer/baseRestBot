@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -25,10 +26,7 @@ public class Food {
     private String description;
     private String photoURL;
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE}, orphanRemoval = true)
-    @JoinTable(name = "food_price_label",
-            joinColumns = @JoinColumn(name = "food_id", referencedColumnName = "id", nullable = false),
-            inverseJoinColumns = @JoinColumn(name = "price_label_id", referencedColumnName = "id", nullable = false))
-    private List<PriceLabel> priceLabels;
+    @OneToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE}, orphanRemoval = true, mappedBy = "food")
+    private List<PriceLabel> priceLabels = new ArrayList<>();
 
 }
