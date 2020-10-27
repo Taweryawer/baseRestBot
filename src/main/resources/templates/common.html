@@ -36,7 +36,21 @@
                     </div>
                 </li>
 
+
             </ul>
+            <div class="form-inline my-2 my-lg-0">
+                <input aria-label="Search" class="form-control mr-sm-2" id="search" placeholder="Введите номер заказа"
+                       type="search">
+                <button class="btn btn-outline-success my-2 my-sm-0" onclick="searchById()">Перейти</button>
+            </div>
+            <script>
+                function searchById() {
+                    id = document.getElementById('search').value;
+                    if (id != null) {
+                        location.href = '/o/' + id;
+                    }
+                }
+            </script>
         </div>
     </nav>
 </div>
