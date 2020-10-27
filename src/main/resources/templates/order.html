@@ -31,4 +31,10 @@
         <div th:text="${line}"/>
     </dd>
 </dl>
+<a class="btn btn-primary" role="button" th:href="${'/accept?id=' + order.getId()}"
+   th:if="${!order.getOrderStatus().name().equals('CONFIRMED') && !order.getOrderStatus().name().equals('CANCELED')}">Подтвердить
+    заказ</a>
+<a class="btn btn-secondary" role="button" th:href="${'/reject?id=' + order.getId()}"
+   th:if="${!order.getOrderStatus().name().equals('CONFIRMED') && !order.getOrderStatus().name().equals('CANCELED')}">Отклонить
+    заказ</a>
 </body>

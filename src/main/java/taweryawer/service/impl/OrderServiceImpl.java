@@ -3,8 +3,12 @@ package taweryawer.service.impl;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
+import org.telegram.telegrambots.bots.TelegramLongPollingBot;
+import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
+import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import taweryawer.entities.Food;
 import taweryawer.entities.Order;
 import taweryawer.entities.OrderPiece;
@@ -36,6 +40,12 @@ public class OrderServiceImpl implements OrderService {
 
     @Autowired
     private SimpMessagingTemplate simpMessagingTemplate;
+
+    @Autowired
+    private TelegramLongPollingBot bot;
+
+    @Autowired
+    private Environment environment;
 
     @Autowired
     private OrderMapper orderMapper;
@@ -152,6 +162,32 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public Long getOrdersCount() {
         return orderRepository.getOrdersCount();
+    }
+
+    @Override
+    public void acceptOrder(Long orderId) {
+        Order order = orderRepository.getOrderById(orderId);
+        order.setOrderStatus(OrderStatus.CONFIRMED);
+        String telegramId = order.getUser().getMachineId();
+        try {
+            log.info("Confirmed order " + order.getId());
+            bot.execute(new SendMessage(telegramId, environment.getProperty("message.confirmed")));
+        } catch (TelegramApiException e) {
+            log.error(e);
+        }
+    }
+
+    @Override
+    public void rejectOrder(Long orderId) {
+        Order order = orderRepository.getOrderById(orderId);
+        order.setOrderStatus(OrderStatus.CANCELED);
+        String telegramId = order.getUser().getMachineId();
+        try {
+            log.info("Rejecting order " + order.getId());
+            bot.execute(new SendMessage(telegramId, environment.getProperty("message.rejected")));
+        } catch (TelegramApiException e) {
+            log.error(e);
+        }
     }
 
 

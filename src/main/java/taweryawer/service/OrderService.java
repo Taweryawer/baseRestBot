@@ -31,4 +31,8 @@ public interface OrderService {
     Order getOrderById(Long orderId);
 
     Long getOrdersCount();
+
+    void acceptOrder(Long orderId);
+
+    void rejectOrder(Long orderId);
 }

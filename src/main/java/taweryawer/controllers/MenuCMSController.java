@@ -17,6 +17,7 @@ import taweryawer.forms.FoodForm;
 import taweryawer.mappers.FoodMapper;
 import taweryawer.service.CategoryService;
 import taweryawer.service.FoodService;
+import taweryawer.service.OrderService;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
@@ -34,6 +35,9 @@ public class MenuCMSController {
 
     @Autowired
     private CategoryService categoryService;
+
+    @Autowired
+    private OrderService orderService;
 
     @GetMapping("/foodlist")
     public String foodListPage(Model model) {
@@ -172,5 +176,17 @@ public class MenuCMSController {
     public String removePriceCategory(@RequestParam(name = "id") Long id) {
         foodService.removePriceCategoryById(id);
         return "redirect:/categorieslist";
+    }
+
+    @GetMapping("/accept")
+    public String acceptOrder(@RequestParam(name = "id") Long id) {
+        orderService.acceptOrder(id);
+        return "redirect:/o/" + id;
+    }
+
+    @GetMapping("/reject")
+    public String rejectOrder(@RequestParam(name = "id") Long id) {
+        orderService.rejectOrder(id);
+        return "redirect:/o/" + id;
     }
 }
