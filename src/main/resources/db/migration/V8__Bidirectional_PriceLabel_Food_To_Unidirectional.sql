@@ -1,4 +1,4 @@
-DROP TABLE food_price_label;
+DROP TABLE IF EXISTS food_price_label;
 
 ALTER TABLE price_label
     ADD COLUMN food_id bigint(20) NOT NULL;
