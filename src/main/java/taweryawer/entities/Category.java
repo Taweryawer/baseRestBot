@@ -16,4 +16,8 @@ public class Category {
     private Long id;
 
     private String name;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "submenu_id")
+    private SubMenu subMenu;
 }
